@@ -4,21 +4,3 @@
     width: 40px;
     background: url('/melee1.jpg');
 }
-
-#melee2 {
-    height: auto;
-    width: 40px;
-    background: url('/melee2.jpg');
-}
-
-#ranged1 {
-    height: auto;
-    width: 40px;
-    background: url('/ranged1.jpg');
-}
-
-#ranged2 {
-    height: auto;
-    width: 40px;
-    background: url('/ranged2.jpg');
-}

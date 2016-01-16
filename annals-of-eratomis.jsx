@@ -1,10 +1,11 @@
 // Define a collection to hold our hero+villains
-Characters = new Mongo.Collection("chars");
+Villains = new Mongo.Collection("villains");
 
 if (Meteor.isClient) {
     // code executed on the client
 
-    Meteor.subscribe("chars");
+    // TODO create a collection for each unique object type
+    Meteor.subscribe("villains");
 
     Meteor.startup(function() {
         // Use Meteor.startup to render the component after the page is ready
