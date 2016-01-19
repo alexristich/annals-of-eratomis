@@ -2,6 +2,7 @@
 LevelPicker = React.createClass({
 
     //temporary set of fixed levels
+    // TODO add a new component for Level
     getLevels() {
         return [
             { _id: 1, type: 1},
@@ -19,9 +20,11 @@ LevelPicker = React.createClass({
         // "Collection".remove({}) are not permitted from client side code.
         Meteor.call('clearLevel');
 
+        var level = $('#levels option:selected').val();
+
 
         // TODO find a more compact way to generate levels
-        if (level === 1) {
+        if (level === "1") {
             for (i = 0; i<3; i++) {
                 Villains.insert({type: "melee1"});
             }
@@ -29,8 +32,7 @@ LevelPicker = React.createClass({
                 Villains.insert({type: "ranged1"});
             }
         }
-
-        if (level === 2) {
+        if (level === "2") {
             for (i = 0; i<5; i++) {
                 Villains.insert({type: "melee1"});
             }
@@ -38,8 +40,7 @@ LevelPicker = React.createClass({
                 Villains.insert({type: "ranged1"});
             }
         }
-
-        if (level === 3) {
+        if (level === "3") {
             for (i = 0; i<3; i++) {
                 Villains.insert({type: "melee2"});
             }
@@ -47,7 +48,7 @@ LevelPicker = React.createClass({
                 Villains.insert({type: "ranged2"});
             }
         }
-        if (level === 4) {
+        if (level === "4") {
             for (i = 0; i<5; i++) {
                 Villains.insert({type: "melee2"});
             }
@@ -57,9 +58,9 @@ LevelPicker = React.createClass({
         }
     },
 
-    levelSelect() {
+    showLevels() {
         return this.getLevels().map((level) => {
-            return <option key={level._id} value={level._id}>level._id</option>;
+            return <option key={level._id} value={level._id}>{level._id}</option>;
         });
     },
 
@@ -74,9 +75,9 @@ LevelPicker = React.createClass({
                 */}
                 <select name="levels" id="levels">
                     <option value="0">Select a level...</option>
-                    {this.levelSelect()}
+                    {this.showLevels()}
                 </select>
-                <input type="button" onClick={this.setLevel} />
+                <input type="button" value="Set level" onClick={this.setLevel} />
             </div>
         )
     }

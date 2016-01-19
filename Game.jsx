@@ -17,7 +17,7 @@ Game = React.createClass({
         let query = {};
 
         return {
-            villains: Villains.find(query, {sort: {key: -1}}).fetch()
+            villains: Villains.find(query, {sort: {key: 1}}).fetch()
         }
     },
 
@@ -27,14 +27,14 @@ Game = React.createClass({
         })
     },
 
+    // is this function needed if I switch to the LevelPicker component?
     handleSubmit(event) {
-
-        console.log(event);
         event.preventDefault();
+        console.log(this.refs);
 
         // TODO figure out how to access the unique type value from the DOM node
         var type = ReactDOM.findDOMNode(this.refs.type).value.trim();
-        console.log(ReactDOM.findDOMNode(this.refs.type));
+        //console.log(ReactDOM.findDOMNode(this.refs.type));
         Villains.insert({
             type: type
         })
@@ -46,10 +46,13 @@ Game = React.createClass({
                 <header>
                     <h1>Villains!</h1>
                 </header>
+                {/* Replace this with new component called LevelPicker
                 <input type="button" value="melee1" ref="type" onClick={this.handleSubmit} />
                 <input type="button" value="melee2" ref="type" onClick={this.handleSubmit} />
                 <input type="button" value="ranged1" ref="type" onClick={this.handleSubmit} />
                 <input type="button" value="ranged2" ref="type" onClick={this.handleSubmit} />
+                */}
+                <LevelPicker />
                 <ul>
                     {this.renderVillains()}
                 </ul>
