@@ -1,6 +1,7 @@
 // Define a collection to hold our hero+villains
-Villains = new Mongo.Collection("villains");
-Levels = new Mongo.Collection("levels");
+
+// move levels collection to new schema like Villains
+//Levels = new Mongo.Collection("levels");
 
 if (Meteor.isClient) {
     // code executed on the client
@@ -12,20 +13,11 @@ if (Meteor.isClient) {
     Meteor.startup(function() {
         // Use Meteor.startup to render the component after the page is ready
         ReactDOM.render(<Game />, document.getElementById("render-target"));
+        Meteor.call('clearVillains');
     });
 }
 
 if (Meteor.isServer) {
     Meteor.startup(function () {
-        // a hack to get around the requirement that Collection.remove({}) calls
-        // are only permitted from the server side
-        // TODO find a more readable solution that can clear out Villains collection
-        Villains.remove({});
-
-        return Meteor.methods({
-            clearLevel: function() {
-                return Villains.remove({});
-            }
-        });
     });
 }

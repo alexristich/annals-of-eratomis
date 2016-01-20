@@ -18,43 +18,27 @@ LevelPicker = React.createClass({
         // clears out Villains collection whenever new level is selected
         // this has to be called from a Meteor method as direct calls to
         // "Collection".remove({}) are not permitted from client side code.
-        Meteor.call('clearLevel');
+        Meteor.call('clearVillains');
 
         var level = $('#levels option:selected').val();
 
 
         // TODO find a more compact way to generate levels
         if (level === "1") {
-            for (i = 0; i<3; i++) {
-                Villains.insert({type: "melee1"});
-            }
-            for (i = 0; i<2; i++) {
-                Villains.insert({type: "ranged1"});
-            }
+            Meteor.call('addVillain', "melee1", 3);
+            Meteor.call('addVillain', "ranged1", 2);
         }
         if (level === "2") {
-            for (i = 0; i<5; i++) {
-                Villains.insert({type: "melee1"});
-            }
-            for (i = 0; i<3; i++) {
-                Villains.insert({type: "ranged1"});
-            }
+            Meteor.call('addVillain', "melee1", 5);
+            Meteor.call('addVillain', "ranged1", 3);
         }
         if (level === "3") {
-            for (i = 0; i<3; i++) {
-                Villains.insert({type: "melee2"});
-            }
-            for (i = 0; i<2; i++) {
-                Villains.insert({type: "ranged2"});
-            }
+            Meteor.call('addVillain', "melee2", 3);
+            Meteor.call('addVillain', "ranged2", 2);
         }
         if (level === "4") {
-            for (i = 0; i<5; i++) {
-                Villains.insert({type: "melee2"});
-            }
-            for (i = 0; i<3; i++) {
-                Villains.insert({type: "ranged2"});
-            }
+            Meteor.call('addVillain', "melee2", 5);
+            Meteor.call('addVillain', "ranged2", 3);
         }
     },
 
@@ -67,12 +51,6 @@ LevelPicker = React.createClass({
     render() {
         return (
             <div>
-                {/*
-                <input type="button" value="Level 1" ref="type" onClick={this.selectLevel(1)} />
-                <input type="button" value="Level 2" ref="type" onClick={this.selectLevel(2)} />
-                <input type="button" value="Level 3" ref="type" onClick={this.selectLevel(3)} />
-                <input type="button" value="Level 4" ref="type" onClick={this.selectLevel(4)} />
-                */}
                 <select name="levels" id="levels">
                     <option value="0">Select a level...</option>
                     {this.showLevels()}
