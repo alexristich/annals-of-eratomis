@@ -18,7 +18,7 @@ LevelPicker = React.createClass({
         // clears out Villains collection whenever new level is selected
         // this has to be called from a Meteor method as direct calls to
         // "Collection".remove({}) are not permitted from client side code.
-        Meteor.call('clearLevel');
+        Meteor.call('clearVillains');
 
         var level = $('#levels option:selected').val();
 
@@ -26,34 +26,34 @@ LevelPicker = React.createClass({
         // TODO find a more compact way to generate levels
         if (level === "1") {
             for (i = 0; i<3; i++) {
-                Villains.insert({type: "melee1"});
+                Meteor.call('addVillain', "melee1");
             }
             for (i = 0; i<2; i++) {
-                Villains.insert({type: "ranged1"});
+                Meteor.call('addVillain', "ranged1");
             }
         }
         if (level === "2") {
             for (i = 0; i<5; i++) {
-                Villains.insert({type: "melee1"});
+                Meteor.call('addVillain', "melee1");
             }
             for (i = 0; i<3; i++) {
-                Villains.insert({type: "ranged1"});
+                Meteor.call('addVillain', "ranged1");
             }
         }
         if (level === "3") {
             for (i = 0; i<3; i++) {
-                Villains.insert({type: "melee2"});
+                Meteor.call('addVillain', "melee2");
             }
             for (i = 0; i<2; i++) {
-                Villains.insert({type: "ranged2"});
+                Meteor.call('addVillain', "ranged2");
             }
         }
         if (level === "4") {
             for (i = 0; i<5; i++) {
-                Villains.insert({type: "melee2"});
+                Meteor.call('addVillain', "melee2");
             }
             for (i = 0; i<3; i++) {
-                Villains.insert({type: "ranged2"});
+                Meteor.call('addVillain', "ranged2");
             }
         }
     },
