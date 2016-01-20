@@ -67,12 +67,6 @@ LevelPicker = React.createClass({
     render() {
         return (
             <div>
-                {/*
-                <input type="button" value="Level 1" ref="type" onClick={this.selectLevel(1)} />
-                <input type="button" value="Level 2" ref="type" onClick={this.selectLevel(2)} />
-                <input type="button" value="Level 3" ref="type" onClick={this.selectLevel(3)} />
-                <input type="button" value="Level 4" ref="type" onClick={this.selectLevel(4)} />
-                */}
                 <select name="levels" id="levels">
                     <option value="0">Select a level...</option>
                     {this.showLevels()}
