@@ -57,12 +57,14 @@ Villains.attachSchema(Schemas.Villains);
 //});
 
 Meteor.methods({
-    addVillain(type) {
-        Villains.insert({
-            type: type,
-            alive: true,
-            source: '/' + type + '.jpg'
-        })
+    addVillain(type, num) {
+        for (i = 0; i < num; i++) {
+            Villains.insert({
+                type: type,
+                alive: true,
+                source: '/' + type + '.jpg'
+            })
+        }
     },
 
     clearVillains() {

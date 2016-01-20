@@ -25,36 +25,20 @@ LevelPicker = React.createClass({
 
         // TODO find a more compact way to generate levels
         if (level === "1") {
-            for (i = 0; i<3; i++) {
-                Meteor.call('addVillain', "melee1");
-            }
-            for (i = 0; i<2; i++) {
-                Meteor.call('addVillain', "ranged1");
-            }
+            Meteor.call('addVillain', "melee1", 3);
+            Meteor.call('addVillain', "ranged1", 2);
         }
         if (level === "2") {
-            for (i = 0; i<5; i++) {
-                Meteor.call('addVillain', "melee1");
-            }
-            for (i = 0; i<3; i++) {
-                Meteor.call('addVillain', "ranged1");
-            }
+            Meteor.call('addVillain', "melee1", 5);
+            Meteor.call('addVillain', "ranged1", 3);
         }
         if (level === "3") {
-            for (i = 0; i<3; i++) {
-                Meteor.call('addVillain', "melee2");
-            }
-            for (i = 0; i<2; i++) {
-                Meteor.call('addVillain', "ranged2");
-            }
+            Meteor.call('addVillain', "melee2", 3);
+            Meteor.call('addVillain', "ranged2", 2);
         }
         if (level === "4") {
-            for (i = 0; i<5; i++) {
-                Meteor.call('addVillain', "melee2");
-            }
-            for (i = 0; i<3; i++) {
-                Meteor.call('addVillain', "ranged2");
-            }
+            Meteor.call('addVillain', "melee2", 5);
+            Meteor.call('addVillain', "ranged2", 3);
         }
     },
 
