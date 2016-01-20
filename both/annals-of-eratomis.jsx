@@ -1,7 +1,7 @@
 // Define a collection to hold our hero+villains
-// temporarily comment this out while working on new model
-//Villains = new Mongo.Collection("villains");
-Levels = new Mongo.Collection("levels");
+
+// move levels collection to new schema like Villains
+//Levels = new Mongo.Collection("levels");
 
 if (Meteor.isClient) {
     // code executed on the client
