@@ -19,16 +19,5 @@ if (Meteor.isClient) {
 
 if (Meteor.isServer) {
     Meteor.startup(function () {
-        // a hack to get around the requirement that Collection.remove({}) calls
-        // are only permitted from the server side
-        // TODO find a more readable solution that can clear out Villains collection
-
-
-        //
-        //return Meteor.methods({
-        //    clearLevel: function() {
-        //        return Villains.remove({});
-        //    }
-        //});
     });
 }
