@@ -1,8 +1,5 @@
 // Component to handle implementation details of villains
 
-/* Leaving this Mongo call commented out until helper methods are completed
-   so villains can be properly accessed from other parts of the project.
-*/
 Villains = new Mongo.Collection('villains');
 
 var Schemas = {};
