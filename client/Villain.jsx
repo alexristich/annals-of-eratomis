@@ -7,7 +7,6 @@ Villain = React.createClass({
     render() {
         // Depending on the type of villain, a different
         // figure will be rendered
-        // TODO add "alive" or "dead" boolean field to props for villains
         const villainType = (this.props.villain.type);
 
         return (
