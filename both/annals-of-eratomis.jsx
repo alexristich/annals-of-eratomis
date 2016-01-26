@@ -19,6 +19,7 @@ if (Meteor.isClient) {
         // tear down of levels
         Meteor.call('clearLevels');
         // initialization of levels
+        //TODO move level properties to file to be processed in Levels.jsx
         Meteor.call('createLevel', 1, 3, 0, 2, 0, false);
         Meteor.call('createLevel', 2, 5, 0, 3, 0, false);
         Meteor.call('createLevel', 3, 0, 3, 0, 2, false);
