@@ -3,13 +3,23 @@ LevelPicker = React.createClass({
 
     //temporary set of fixed levels
     // TODO add a new component for Level
-    getLevels() {
-        return [
-            { _id: 1, type: 1},
-            { _id: 2, type: 2},
-            { _id: 3, type: 3},
-            { _id: 4, type: 4}
-        ];
+    //getLevels() {
+    //    return [
+    //        { _id: 1, type: 1},
+    //        { _id: 2, type: 2},
+    //        { _id: 3, type: 3},
+    //        { _id: 4, type: 4}
+    //    ];
+    //},
+
+    mixins: [ReactMeteorData],
+
+    getMeteorData() {
+        let query = {};
+
+        return {
+            levels: Levels.find({}, {sort: {key: 1}}).fetch()
+        }
     },
 
     setLevel(e) {
@@ -23,28 +33,12 @@ LevelPicker = React.createClass({
         var level = $('#levels option:selected').val();
 
 
-        // TODO find a more compact way to generate levels
-        if (level === "1") {
-            Meteor.call('addVillain', "melee1", 3);
-            Meteor.call('addVillain', "ranged1", 2);
-        }
-        if (level === "2") {
-            Meteor.call('addVillain', "melee1", 5);
-            Meteor.call('addVillain', "ranged1", 3);
-        }
-        if (level === "3") {
-            Meteor.call('addVillain', "melee2", 3);
-            Meteor.call('addVillain', "ranged2", 2);
-        }
-        if (level === "4") {
-            Meteor.call('addVillain', "melee2", 5);
-            Meteor.call('addVillain', "ranged2", 3);
-        }
+        Meteor.call('loadLevel', level);
     },
 
     showLevels() {
-        return this.getLevels().map((level) => {
-            return <option key={level._id} value={level._id}>{level._id}</option>;
+        return this.data.levels.map((level) => {
+            return <option key={level._id} value={level._id}>{level.id}</option>;
         });
     },
 

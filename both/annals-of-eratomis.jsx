@@ -14,6 +14,15 @@ if (Meteor.isClient) {
         // Use Meteor.startup to render the component after the page is ready
         ReactDOM.render(<Game />, document.getElementById("render-target"));
         Meteor.call('clearVillains');
+
+
+        // tear down of levels
+        Meteor.call('clearLevels');
+        // initialization of levels
+        Meteor.call('createLevel', 1, 3, 0, 2, 0, false);
+        Meteor.call('createLevel', 2, 5, 0, 3, 0, false);
+        Meteor.call('createLevel', 3, 0, 3, 0, 2, false);
+        Meteor.call('createLevel', 4, 0, 5, 0, 3, false);
     });
 }
 
