@@ -39,9 +39,9 @@ Schemas.Levels = new SimpleSchema({
 Levels.attachSchema(Schemas.Levels);
 
 Meteor.methods({
-    createLevel: function(id, numMelee1, numMelee2, numRanged1, numRanged2, active) {
+    createLevel: function(levelId, numMelee1, numMelee2, numRanged1, numRanged2, active) {
         Levels.insert({
-            id: id,
+            id: levelId,
             numMelee1: numMelee1,
             numMelee2: numMelee2,
             numRanged1: numRanged1,
@@ -50,8 +50,8 @@ Meteor.methods({
         })
     },
 
-    loadLevel: function(level) {
-        var thisLevel = Levels.findOne({_id: level});
+    loadLevel: function(levelId) {
+        var thisLevel = Levels.findOne({_id: levelId});
         Meteor.call("addVillain", "melee1", thisLevel.numMelee1);
         Meteor.call("addVillain", "melee2", thisLevel.numMelee2);
         Meteor.call("addVillain", "ranged1", thisLevel.numRanged1);
