@@ -1,17 +1,6 @@
 // The widget where a user can select their desired difficulty level
 LevelPicker = React.createClass({
 
-    //temporary set of fixed levels
-    // TODO add a new component for Level
-    //getLevels() {
-    //    return [
-    //        { _id: 1, type: 1},
-    //        { _id: 2, type: 2},
-    //        { _id: 3, type: 3},
-    //        { _id: 4, type: 4}
-    //    ];
-    //},
-
     mixins: [ReactMeteorData],
 
     getMeteorData() {
