@@ -63,9 +63,21 @@ Meteor.methods({
             Villains.insert({
                 type: type,
                 alive: true,
+                xpos: 0,
                 source: '/' + type + '.jpg'
             })
         }
+    },
+
+    moveVillainsLaterally(delta) {
+
+
+        Villains.update({}, {$set: xpos += delta});
+    },
+
+    moveVillainsVertically(delta) {
+
+        Villains.update({}, {$set: ypos += delta});
     },
 
     clearVillains() {
