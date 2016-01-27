@@ -4,7 +4,7 @@ Levels = new Mongo.Collection('levels');
 
 var Schemas = {};
 
-Schemas.Levels = new SimpleSchema({
+Schemas.Level = new SimpleSchema({
     id: {
         type: Number,
         label: "Level"
@@ -36,7 +36,7 @@ Schemas.Levels = new SimpleSchema({
     }
 });
 
-Levels.attachSchema(Schemas.Levels);
+Levels.attachSchema(Schemas.Level);
 
 Meteor.methods({
     createLevel: function(levelId, numMelee1, numMelee2, numRanged1, numRanged2, active) {
