@@ -4,7 +4,7 @@ Villains = new Mongo.Collection('villains');
 
 var Schemas = {};
 
-Schemas.Villains = new SimpleSchema({
+Schemas.Villain = new SimpleSchema({
     type: {
         type: String,
         label: "Villain Type"
@@ -47,7 +47,7 @@ Schemas.Villains = new SimpleSchema({
     }
 });
 
-Villains.attachSchema(Schemas.Villains);
+Villains.attachSchema(Schemas.Villain);
 
 //Villains.helpers({
     // TODO add helper methods to access different attributes of villains
