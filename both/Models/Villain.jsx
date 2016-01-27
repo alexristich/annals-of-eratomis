@@ -63,7 +63,7 @@ Meteor.methods({
             Villains.insert({
                 type: type,
                 alive: true,
-                xpos: 0,
+                xpos: 300,
                 source: '/' + type + '.jpg'
             })
         }
