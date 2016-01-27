@@ -8,12 +8,13 @@ Villain = React.createClass({
         // Depending on the type of villain, a different
         // figure will be rendered
         const villainType = (this.props.villain.type);
+        var xpos = (this.props.villain.xpos);
 
         return (
             <li>
                 <h3> {villainType}</h3>
                <img src={'/' + villainType + '.jpg'} style=
-                   {{"position: relative; left":+ this.props.villain.xpos + "px"}}  />
+                   {{"position: relative; left":+ xpos + "px"}}  />
             </li>
         )
     }

@@ -57,6 +57,8 @@ Villains.attachSchema(Schemas.Villain);
     // TODO add helper methods to access different attributes of villains
 //});
 
+var rate = 2;
+
 Meteor.methods({
     addVillain(type, num) {
         for (i = 0; i < num; i++) {
@@ -64,20 +66,31 @@ Meteor.methods({
                 type: type,
                 alive: true,
                 xpos: 300,
+                ypos: 300,
                 source: '/' + type + '.jpg'
             })
         }
     },
 
+    moveVillains(key) {
+        if (key === "ArrowRight") {
+            Meteor.call("moveVillainsLaterally", rate);
+        } else if (key === "ArrowLeft") {
+            this.moveVillainsLaterally(-rate);
+        } else if (key === "ArrowDown") {
+            this.moveVillainsVertically(-rate);
+        } else if (key === "ArrowUp") {
+            this.moveVillainsVertically(-rate);
+        }
+    },
+
+    // TODO figure out how to re-render villains after move action
     moveVillainsLaterally(delta) {
-
-
-        Villains.update({}, {$set: xpos += delta});
+        Villains.update({}, {$inc: {xpos: delta}});
     },
 
     moveVillainsVertically(delta) {
-
-        Villains.update({}, {$set: ypos += delta});
+        Villains.update({}, {$inc: {ypos: delta}});
     },
 
     clearVillains() {

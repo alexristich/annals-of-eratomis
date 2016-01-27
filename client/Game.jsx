@@ -17,9 +17,20 @@ Game = React.createClass({
         })
     },
 
+    handleKey(event) {
+        event.preventDefault();
+
+        var keyEvent = event.key;
+
+        if (keyEvent === "ArrowRight" || "ArrowLeft"
+                || "ArrowUp" || "ArrowDown") {
+            Meteor.call("moveVillains", keyEvent);
+        }
+    },
+
     render() {
         return (
-            <div>
+            <div onKeyDown={this.handleKey}>
                 <header>
                     <h1>Villains!</h1>
                 </header>
