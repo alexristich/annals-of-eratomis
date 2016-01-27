@@ -15,31 +15,35 @@ Schemas.Villain = new SimpleSchema({
         label: "Alive"
     },
 
-    //hitPoints: {
-    //    type: Number,
-    //    label: "Hit Points",
-    //    min: 0,
-    //    max: 10000
-    //},
-    //
-    //xpos: {
-    //    type: Number,
-    //    label: "X-Position",
-    //    min: 0
-    //},
-    //
-    //ypos: {
-    //    type: Number,
-    //    label: "Y-Position",
-    //    min: 0
-    //},
-    //
-    //speed: {
-    //    type: Number,
-    //    label: "Movement Speed",
-    //    min: 0,
-    //    max: 5
-    //},
+    hitPoints: {
+        type: Number,
+        label: "Hit Points",
+        optional: true,
+        min: 0,
+        max: 10000
+    },
+
+    xpos: {
+        type: Number,
+        label: "X-Position",
+        optional: true,
+        min: 0
+    },
+
+    ypos: {
+        type: Number,
+        label: "Y-Position",
+        optional: true,
+        min: 0
+    },
+
+    speed: {
+        type: Number,
+        label: "Movement Speed",
+        optional: true,
+        min: 0,
+        max: 5
+    },
 
     source: {
         type: String,
