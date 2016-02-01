@@ -12,9 +12,11 @@ Villain = React.createClass({
 
         return (
             <li>
-                <h3> {villainType}</h3>
-               <img src={'/' + villainType + '.jpg'} style=
-                   {{"position: relative; left":+ xpos + "px"}}  />
+                <div>
+                    <h3> {villainType}</h3>
+                    <img src={'/' + villainType + '.jpg'} style=
+                        {{"position: relative; left":+ xpos + "px"}}  />
+                </div>
             </li>
         )
     }
