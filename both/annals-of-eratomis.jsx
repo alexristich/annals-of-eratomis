@@ -3,6 +3,9 @@
 // move levels collection to new schema like Villains
 //Levels = new Mongo.Collection("levels");
 
+// set default movement rate for game
+defaultMovementRate = 20;
+
 if (Meteor.isClient) {
     // code executed on the client
 

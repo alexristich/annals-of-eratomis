@@ -4,7 +4,7 @@ Villains = new Mongo.Collection('villains');
 
 var Schemas = {};
 
-Schemas.Villains = new SimpleSchema({
+Schemas.Villain = new SimpleSchema({
     type: {
         type: String,
         label: "Villain Type"
@@ -15,31 +15,35 @@ Schemas.Villains = new SimpleSchema({
         label: "Alive"
     },
 
-    //hitPoints: {
-    //    type: Number,
-    //    label: "Hit Points",
-    //    min: 0,
-    //    max: 10000
-    //},
-    //
-    //xpos: {
-    //    type: Number,
-    //    label: "X-Position",
-    //    min: 0
-    //},
-    //
-    //ypos: {
-    //    type: Number,
-    //    label: "Y-Position",
-    //    min: 0
-    //},
-    //
-    //speed: {
-    //    type: Number,
-    //    label: "Movement Speed",
-    //    min: 0,
-    //    max: 5
-    //},
+    hitPoints: {
+        type: Number,
+        label: "Hit Points",
+        optional: true,
+        min: 0,
+        max: 10000
+    },
+
+    xpos: {
+        type: Number,
+        label: "X-Position",
+        optional: true,
+        min: 0
+    },
+
+    ypos: {
+        type: Number,
+        label: "Y-Position",
+        optional: true,
+        min: 0
+    },
+
+    speed: {
+        type: Number,
+        label: "Movement Speed",
+        optional: true,
+        min: 0,
+        max: 5
+    },
 
     source: {
         type: String,
@@ -47,24 +51,37 @@ Schemas.Villains = new SimpleSchema({
     }
 });
 
-Villains.attachSchema(Schemas.Villains);
+Villains.attachSchema(Schemas.Villain);
 
 //Villains.helpers({
     // TODO add helper methods to access different attributes of villains
 //});
 
 Meteor.methods({
-    addVillain(type, num) {
-        for (i = 0; i < num; i++) {
+    // adds n villains to the list of villains using the given type
+    addVillain: function(type, n) {
+        for (i = 0; i < n; i++) {
             Villains.insert({
                 type: type,
                 alive: true,
+                xpos: 300,
+                ypos: 300,
                 source: '/' + type + '.jpg'
             })
         }
     },
 
-    clearVillains() {
+    // moves all villains in horizontal direction
+    moveVillainsLaterally: function(delta) {
+        Villains.update({}, {$inc: {xpos: delta}}, {multi: true});
+    },
+
+    // moves all villains in vertical direction
+    moveVillainsVertically: function(delta) {
+        Villains.update({}, {$inc: {ypos: delta}}, {multi: true});
+    },
+
+    clearVillains: function() {
         Villains.remove({});
     }
 });
