@@ -22,9 +22,14 @@ Game = React.createClass({
 
         var keyEvent = event.key;
 
-        if (keyEvent === "ArrowRight" || "ArrowLeft"
-                || "ArrowUp" || "ArrowDown") {
-            Meteor.call("moveVillains", keyEvent);
+        if (keyEvent === "ArrowRight") {
+            Meteor.call('moveVillainsLaterally', defaultMovementRate);
+        } else if (keyEvent === "ArrowLeft") {
+            Meteor.call('moveVillainsLaterally', -defaultMovementRate);
+        } else if (keyEvent === "ArrowDown") {
+            Meteor.call('moveVillainsVertically', defaultMovementRate);
+        } else if (keyEvent === "ArrowUp") {
+            Meteor.call('moveVillainsVertically', -defaultMovementRate);
         }
     },
 
