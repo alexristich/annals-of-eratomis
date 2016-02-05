@@ -12,6 +12,7 @@ if (Meteor.isClient) {
     // TODO create a collection for each unique object type
     Meteor.subscribe("villains");
     Meteor.subscribe("levels");
+    Meteor.subscribe("heros");
 
     Meteor.startup(function() {
         // Use Meteor.startup to render the component after the page is ready
@@ -28,6 +29,14 @@ if (Meteor.isClient) {
         Meteor.call('createLevel', 2, 5, 0, 3, 0, false);
         Meteor.call('createLevel', 3, 0, 3, 0, 2, false);
         Meteor.call('createLevel', 4, 0, 5, 0, 3, false);
+
+        //creating Hero
+        var hero = {
+            username: "newHero",
+            xpos: 300,
+            ypos: 300
+        };
+        Meteor.call('addHero', hero);
     });
 }
 
