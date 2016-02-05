@@ -2,99 +2,120 @@
 
 // starting with a single Hero instance for now
 // TODO figure out how to best handle storage and retrieval of hero for different players
-Hero = new Mongo.Collection('hero');
+Heros = new Mongo.Collection('heros');
 
 var Schemas = {};
 
 Schemas.Hero = new SimpleSchema({
-    name: {
+    username: {
         type: String,
-        name: "Username"
+        label: "Username"
     },
 
     hitPoints: {
         type: Number,
-        name: "Hit Points"
+        label: "Hit Points",
+        optional: true
     },
 
     damage: {
         type: Number,
-        name: "Damage"
+        label: "Damage",
+        optional: true
     },
 
     defense: {
         type: Number,
-        name: "Defense Bonus"
+        label: "Defense Bonus",
+        optional: true
     },
 
     atkSpeed: {
         type: Number,
-        name: "Attack Speed"
+        label: "Attack Speed",
+        optional: true
     },
 
     xpos: {
         type: Number,
-        name: "X Position",
+        label: "X Position",
         min: 0
     },
 
     ypos: {
         type: Number,
-        name: "Y Position",
+        label: "Y Position",
         min: 0
     },
 
     movSpeed: {
         type: Number,
-        name: "Movement Speed",
+        label: "Movement Speed",
+        optional: true,
         min: 0,
         max: 10
     },
 
     gold: {
         type: Number,
-        name: "Gold",
+        label: "Gold",
+        optional: true,
         min: 0
     },
 
     // currently equipped weapon
     currWeapon: {
         type: Schemas.Weapon,
-        name: "Current Weapon"
+        label: "Current Weapon",
+        optional: true
     },
 
     // list of all owned weapons
     purcWeapons: {
         type: [Schemas.Weapon],
-        name: "Purchased Weapons"
+        label: "Purchased Weapons",
+        optional: true
     },
 
     // currently equipped armor
     currArmor: {
         type: Schemas.Armor,
-        name: "Current Armor"
+        label: "Current Armor",
+        optional: true
     },
 
     // list of all owned armors
     purcArmors: {
         type: [Schemas.Armor],
-        name: "Purchased Armors"
+        label: "Purchased Armors",
+        optional: true
     }
 });
 
-Hero.attachSchema(Schemas.Hero);
+Heros.attachSchema(Schemas.Hero);
 
 Meteor.methods({
-    adjustBalance(delta) {
-        Hero.gold += delta;
+    addHero: function(hero) {
+        Heros.insert({
+            username: hero.username,
+            xpos: hero.xpos,
+            ypos: hero.ypos
+        })
     },
+    //adjustBalance(delta) {
+    //    Hero.gold += delta;
+    //},
+    //
+    //changeArmor(armor) {
+    //    Hero.currArmor = armor;
+    //},
+    //
+    //changeWeapon(weapon) {
+    //    Hero.currWeapon = weapon;
+    //},
 
-    changeArmor(armor) {
-        Hero.currArmor = armor;
-    },
-
-    changeWeapon(weapon) {
-        Hero.currWeapon = weapon;
+    removeHero() {
+        Heros.remove({});
     }
 
     // TODO add additional methods to modify Hero
