@@ -2,20 +2,22 @@
 
 Weapons = new Mongo.Collection('weapons');
 
-Schema.Weapon = new SimpleSchema({
+var Schemas = {};
+
+Schemas.Weapon = new SimpleSchema({
     type: {
         type: String,
-        name: "Weapon Class"
+        label: "Weapon Class"
     },
 
     name: {
         type: String,
-        name: "Weapon Name"
+        label: "Weapon Name"
     },
 
     damage: {
         type: Number,
-        name: "Damage"
+        label: "Damage"
     },
 
     source: {
@@ -36,7 +38,7 @@ Schema.Weapon = new SimpleSchema({
     }
 });
 
-Weapons.attachSchema(Schema.Weapon);
+Weapons.attachSchema(Schemas.Weapon);
 
 Meteor.methods({
     addWeapon() {
