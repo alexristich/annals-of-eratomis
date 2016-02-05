@@ -17,6 +17,7 @@ if (Meteor.isClient) {
         // Use Meteor.startup to render the component after the page is ready
         ReactDOM.render(<Game />, document.getElementById("render-target"));
         Meteor.call('clearVillains');
+        Meteor.call('removeHero');
 
 
         // tear down of levels
