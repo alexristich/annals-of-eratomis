@@ -37,6 +37,9 @@ HeroCreator = React.createClass({
                         type="text"
                         ref="heroName"
                         placeholder="Enter your hero's name" />
+                    <input
+                        type="submit"
+                        value="Submit" />
                 </form>
             </div>
         )
