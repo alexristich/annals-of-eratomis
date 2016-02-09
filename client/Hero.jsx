@@ -6,7 +6,6 @@ Hero = React.createClass({
 
     render() {
         var xpos = this.props.hero.xpos;
-        console.log(this.props.hero.xpos);
 
         //render hero according to current xpos
         var imgStyle = {
