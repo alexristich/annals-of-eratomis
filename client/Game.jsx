@@ -3,12 +3,6 @@ Game = React.createClass({
 
     mixins: [ReactMeteorData],
 
-    getInitialState() {
-        return {
-            hideHero: true
-        }
-    },
-
     getMeteorData() {
         let query = {};
 
@@ -41,7 +35,6 @@ Game = React.createClass({
     },
 
     renderHero() {
-        // TODO figure out why the button is being "clicked" immediately to call this
         return this.data.hero.map((hero) => {
             return <Hero key={hero._id} hero={hero} />;
         })
@@ -49,16 +42,18 @@ Game = React.createClass({
 
     render() {
         return (
-            <div onKeyDown={this.handleKey}>
+            <div>
+                <header>
+                    <h1>Hero!</h1>
+                </header>
+                <HeroCreator />
+                <div>
+                        {this.renderHero()}
+                </div>
+
                 <header>
                     <h1>Villains!</h1>
                 </header>
-                { this.state.hideHero ?
-                    <input type="button" value="Create Your Hero!"
-                           onClick={this.state.hideHero = false}/> :
-                    <ul> {this.renderHero()}
-                    </ul>
-                }
                 <br />
                 <LevelPicker />
                 <ul>
