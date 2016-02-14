@@ -63,3 +63,15 @@ Meteor.methods({
     }
 
 });
+
+if (Meteor.isServer) {
+    Meteor.methods({
+
+        createJSONLevel: function (path) {
+            // parse JSON object here to create level
+            var JSONObject = JSON.parse(Assets.getText("levels.json"));
+            return JSONObject;
+        }
+
+    });
+}
