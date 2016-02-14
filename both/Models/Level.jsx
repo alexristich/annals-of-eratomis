@@ -12,42 +12,87 @@ Schemas.Level = new SimpleSchema({
 
     numMelee1: {
         type: Number,
-        label: "# Melee1"
+        label: "# Melee1",
+        optional: true
     },
 
     numMelee2: {
         type: Number,
-        label: "# Melee2"
+        label: "# Melee2",
+        optional: true
     },
 
     numRanged1: {
         type: Number,
-        label: "# Ranged1"
+        label: "# Ranged1",
+        optional: true
     },
 
     numRanged2: {
         type: Number,
-        label: "# Ranged2"
+        label: "# Ranged2",
+        optional: true
     },
 
     active: {
         type: Boolean,
-        label: "Currently Active"
+        label: "Currently Active",
+        optional: true
     }
 });
 
 Levels.attachSchema(Schemas.Level);
 
 Meteor.methods({
-    createLevel: function(levelId, numMelee1, numMelee2, numRanged1, numRanged2, active) {
+    //createLevel: function(levelId, numMelee1, numMelee2, numRanged1, numRanged2, active) {
+    //    Levels.insert({
+    //        id: levelId,
+    //        numMelee1: numMelee1,
+    //        numMelee2: numMelee2,
+    //        numRanged1: numRanged1,
+    //        numRanged2: numRanged2,
+    //        active: active
+    //    })
+    //},
+
+    parseLevels: function(obj) {
+        // this returns a JSON object containing level information
+        var levelSet = {};
+        levelSet = obj;
+
+        for (i=0; i<levelSet.length; i++) {
+            Meteor.call("parseLevel", levelSet[i]);
+        }
+    },
+
+    parseLevel: function(level) {
+        // should the level be inserted here?
+
+        //Levels.insert({
+        //    id: level._id
+        //    // other properties
+        //});
+        //
+        Meteor.call("addVillains", level._id, level.villains);
+
+        // TODO add method to parse obstacles
+    },
+
+    addVillains: function(_id, villains) {
         Levels.insert({
-            id: levelId,
-            numMelee1: numMelee1,
-            numMelee2: numMelee2,
-            numRanged1: numRanged1,
-            numRanged2: numRanged2,
-            active: active
-        })
+            id: _id,
+            numMelee1: villains.melee1,
+            numMelee2: villains.melee2,
+            numRanged1: villains.ranged1,
+            numRanged2: villains.ranged2
+        });
+    },
+
+    initLevels: function() {
+        // TODO add "meteor add http" to build instructions
+        HTTP.get(Meteor.absoluteUrl("levels.json"), function(err, result) {
+            Meteor.call("parseLevels", result.data);
+        });
     },
 
     loadLevel: function(levelId) {
@@ -67,11 +112,15 @@ Meteor.methods({
 if (Meteor.isServer) {
     Meteor.methods({
 
-        createJSONLevel: function (path) {
-            // parse JSON object here to create level
-            var JSONObject = JSON.parse(Assets.getText("levels.json"));
-            return JSONObject;
-        }
+        // leaving this commented out; parsing will initially be handled on client side
+        // and returned to server side later if necessary
+
+        //createJSONLevel: function (path) {
+        //    // parse JSON object here to create level
+        //    var levels = {};
+        //    levels = Assets.getText(path);
+        //    return levels;
+        //}
 
     });
 }
