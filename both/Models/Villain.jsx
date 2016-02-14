@@ -53,10 +53,6 @@ Schemas.Villain = new SimpleSchema({
 
 Villains.attachSchema(Schemas.Villain);
 
-//Villains.helpers({
-    // TODO add helper methods to access different attributes of villains
-//});
-
 Meteor.methods({
     // adds n villains to the list of villains using the given type
     addVillain: function(type, n) {
