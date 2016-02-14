@@ -12,7 +12,7 @@ if (Meteor.isClient) {
     // TODO create a collection for each unique object type
     Meteor.subscribe("villains");
     Meteor.subscribe("levels");
-    Meteor.subscribe("heros");
+    Meteor.subscribe("heroes");
 
     Meteor.startup(function() {
         // Use Meteor.startup to render the component after the page is ready
