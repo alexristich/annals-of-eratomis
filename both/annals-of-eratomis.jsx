@@ -17,14 +17,17 @@ if (Meteor.isClient) {
     Meteor.startup(function() {
         // Use Meteor.startup to render the component after the page is ready
         ReactDOM.render(<Game />, document.getElementById("render-target"));
+
+        // tear down of previous game state for easier testing
         Meteor.call('clearVillains');
         Meteor.call('removeHero');
-
-
-        // tear down of levels
         Meteor.call('clearLevels');
+
         // initialization of levels
+        // TODO move this to the Game component
         Meteor.call('initLevels');
+
+        // storing previous game data until fully incorporated in levels.json
         //Meteor.call('createLevel', 2, 5, 0, 3, 0, false);
         //Meteor.call('createLevel', 3, 0, 3, 0, 2, false);
         //Meteor.call('createLevel', 4, 0, 5, 0, 3, false);

@@ -94,19 +94,3 @@ Meteor.methods({
     }
 
 });
-
-if (Meteor.isServer) {
-    Meteor.methods({
-
-        // leaving this commented out; parsing will initially be handled on client side
-        // and returned to server side later if necessary
-
-        //createJSONLevel: function (path) {
-        //    // parse JSON object here to create level
-        //    var levels = {};
-        //    levels = Assets.getText(path);
-        //    return levels;
-        //}
-
-    });
-}
