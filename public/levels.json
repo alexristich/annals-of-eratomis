@@ -18,7 +18,7 @@
         "height": 700,
         "width": 10,
         "xpos": 0,
-        "ypos": 350
+        "ypos": 0
       },
       {
         "_id": 2,
@@ -26,14 +26,14 @@
         "height": 700,
         "width": 10,
         "xpos": 690,
-        "ypos": 350
+        "ypos": 0
       },
       {
         "_id": 3,
         "type": "wall",
         "height": 10,
         "width": 700,
-        "xpos": 350,
+        "xpos": 0,
         "ypos": 0
       },
       {
@@ -41,7 +41,7 @@
         "type": "wall",
         "height": 10,
         "width": 700,
-        "xpos": 350,
+        "xpos": 0,
         "ypos": 690
       }
     ]
@@ -65,7 +65,7 @@
         "height": 700,
         "width": 10,
         "xpos": 0,
-        "ypos": 350
+        "ypos": 0
       },
       {
         "_id": 2,
@@ -73,14 +73,14 @@
         "height": 700,
         "width": 10,
         "xpos": 690,
-        "ypos": 350
+        "ypos": 0
       },
       {
         "_id": 3,
         "type": "wall",
         "height": 10,
         "width": 700,
-        "xpos": 350,
+        "xpos": 0,
         "ypos": 0
       },
       {
@@ -88,7 +88,7 @@
         "type": "wall",
         "height": 10,
         "width": 700,
-        "xpos": 350,
+        "xpos": 0,
         "ypos": 690
       }
     ]

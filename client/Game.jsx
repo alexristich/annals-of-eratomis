@@ -8,7 +8,8 @@ Game = React.createClass({
 
         return {
             villains: Villains.find(query, {sort: {key: 1}}).fetch(),
-            hero: Heros.find(query).fetch()
+            hero: Heros.find(query).fetch(),
+            level: Levels.findOne({active: true})
         }
     },
 
@@ -40,9 +41,20 @@ Game = React.createClass({
         })
     },
 
+    // render all obstacles for the specified level
+    renderObstacles() {
+        if (this.data.level !== undefined) {
+            //console.log(this.data.level.obstacles);
+            return this.data.level.obstacles.map((obstacle) => {
+                return <Obstacle obstacle={obstacle}/>
+            })
+        }
+    },
+
     render() {
         return (
             <div>
+                {this.renderObstacles()}
                 <header>
                     <h1>Hero!</h1>
                 </header>
