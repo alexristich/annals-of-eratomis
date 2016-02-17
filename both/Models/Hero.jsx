@@ -2,7 +2,7 @@
 
 // starting with a single Hero instance for now
 // TODO figure out how to best handle storage and retrieval of hero for different players
-Heros = new Mongo.Collection('heros');
+Heros = new Mongo.Collection('heroes');
 
 var Schemas = {};
 
