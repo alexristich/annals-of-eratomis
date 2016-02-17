@@ -82,7 +82,15 @@ Meteor.methods({
     },
 
     loadLevel: function(levelId) {
+        // set the previous level to inactive
+        var prevLevel = Levels.findOne({active: true});
+        Levels.update(prevLevel, {$set: {active: false}});
+
+        // set the new level to active
         var thisLevel = Levels.findOne({_id: levelId});
+        Levels.update(thisLevel, {$set: {active: true}});
+
+        // add the appropriate villains for the given level
         Meteor.call("addVillain", "melee1", thisLevel.numMelee1);
         Meteor.call("addVillain", "melee2", thisLevel.numMelee2);
         Meteor.call("addVillain", "ranged1", thisLevel.numRanged1);
