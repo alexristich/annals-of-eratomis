@@ -12,12 +12,12 @@ Obstacle = React.createClass({
         const type = (this.props.obstacle.type);
 
         var divStyle = {
-            position: 'relative',
+            position: 'absolute',
             width: width,
             height: height,
             left: xpos + 'px',
             top: ypos + 'px',
-            color: '#0000FF'
+            backgroundColor: '#123456'
         };
 
         return (

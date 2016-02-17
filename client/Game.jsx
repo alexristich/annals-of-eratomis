@@ -40,9 +40,51 @@ Game = React.createClass({
         })
     },
 
+    // adding this temporarily for testing
+    renderObstacle() {
+        var obstacle2 = {
+                "type": "wall",
+                "height": 700,
+                "width": 10,
+                "xpos": 0,
+                "ypos": 0
+            };
+        var obstacle3 = {
+                "type": "wall",
+                "height": 700,
+                "width": 10,
+                "xpos": 690,
+                "ypos": 0
+            };
+        var obstacle4 =
+            {
+                "type": "wall",
+                "height": 10,
+                "width": 700,
+                "xpos": 0,
+                "ypos": 0
+            };
+        var obstacle5 =
+        {
+            "type": "wall",
+            "height": 10,
+            "width": 700,
+            "xpos": 0,
+            "ypos": 690
+        };
+
+        var obstacles = [obstacle2, obstacle3, obstacle4, obstacle5
+            ];
+
+        return obstacles.map((obstacle) => {
+            return <Obstacle obstacle={obstacle}/>
+        });
+    },
+
     render() {
         return (
             <div>
+                {this.renderObstacle()}
                 <header>
                     <h1>Hero!</h1>
                 </header>
