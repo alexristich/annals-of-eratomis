@@ -44,48 +44,34 @@ Schemas.Level = new SimpleSchema({
 Levels.attachSchema(Schemas.Level);
 
 Meteor.methods({
-    //createLevel: function(levelId, numMelee1, numMelee2, numRanged1, numRanged2, active) {
-    //    Levels.insert({
-    //        id: levelId,
-    //        numMelee1: numMelee1,
-    //        numMelee2: numMelee2,
-    //        numRanged1: numRanged1,
-    //        numRanged2: numRanged2,
-    //        active: active
-    //    })
-    //},
-
     parseLevels: function(obj) {
         // this returns a JSON object containing level information
         var levelSet = {};
         levelSet = obj;
-
         for (i=0; i<levelSet.length; i++) {
             Meteor.call("parseLevel", levelSet[i]);
         }
     },
 
     parseLevel: function(level) {
-        // should the level be inserted here?
+        // should the level be created here?
 
-        //Levels.insert({
-        //    id: level._id
-        //    // other properties
-        //});
-        //
-        Meteor.call("addVillains", level._id, level.villains);
+        Meteor.call("createLevel", level._id, level.villains);
 
         // TODO add method to parse obstacles
     },
 
-    addVillains: function(_id, villains) {
-        Levels.insert({
-            id: _id,
-            numMelee1: villains.melee1,
-            numMelee2: villains.melee2,
-            numRanged1: villains.ranged1,
-            numRanged2: villains.ranged2
+    createLevel: function(levelId, villains) {
+        Levels.upsert({id: levelId}, {
+            $set: {
+                id: levelId,
+                numMelee1: villains.melee1,
+                numMelee2: villains.melee2,
+                numRanged1: villains.ranged1,
+                numRanged2: villains.ranged2
+            }
         });
+
     },
 
     initLevels: function() {

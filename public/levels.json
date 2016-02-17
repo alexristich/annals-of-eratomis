@@ -52,14 +52,12 @@
     "difficulty": "Intermediate",
     "height": 700,
     "width": 700,
-    "villains": [
-      {
-        "melee1": 5,
-        "melee2": 0,
-        "ranged1": 3,
-        "ranged2": 0
-      }
-    ],
+    "villains": {
+      "melee1": 5,
+      "melee2": 0,
+      "ranged1": 3,
+      "ranged2": 0
+    },
     "obstacles": [
       {
         "_id": 1,
