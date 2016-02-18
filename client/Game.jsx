@@ -8,7 +8,8 @@ Game = React.createClass({
 
         return {
             villains: Villains.find(query, {sort: {key: 1}}).fetch(),
-            hero: Heros.find(query).fetch(),
+            // TODO add search query here to find specific hero
+            hero: Heroes.findOne(query),
             level: Levels.findOne({active: true})
         }
     },
@@ -20,25 +21,29 @@ Game = React.createClass({
     },
 
     handleKey(event) {
+        // for now, we don't want to catch any key events while the hero is not active
+        if (this.data.hero === undefined) {
+            return;
+        }
         event.preventDefault();
-
         var keyEvent = event.key;
 
         if (keyEvent === "ArrowRight") {
-            Meteor.call('moveVillainsLaterally', defaultMovementRate);
+            Meteor.call('moveHeroLaterally', defaultMovementRate);
         } else if (keyEvent === "ArrowLeft") {
-            Meteor.call('moveVillainsLaterally', -defaultMovementRate);
+            Meteor.call('moveHeroLaterally', -defaultMovementRate);
         } else if (keyEvent === "ArrowDown") {
-            Meteor.call('moveVillainsVertically', defaultMovementRate);
+            Meteor.call('moveHeroVertically', defaultMovementRate);
         } else if (keyEvent === "ArrowUp") {
-            Meteor.call('moveVillainsVertically', -defaultMovementRate);
+            Meteor.call('moveHeroVertically', -defaultMovementRate);
         }
     },
 
     renderHero() {
-        return this.data.hero.map((hero) => {
-            return <Hero key={hero._id} hero={hero} />;
-        })
+        // we will only be rendering one hero at any give time
+        if (this.data.hero !== undefined) {
+        return <Hero key={this.data.hero._id} hero={this.data.hero} />
+        }
     },
 
     // render all obstacles for the specified level
@@ -53,7 +58,8 @@ Game = React.createClass({
 
     render() {
         return (
-            <div>
+            <div onKeyDown={this.handleKey}>
+
                 {this.renderObstacles()}
                 <header>
                     <h1>Hero!</h1>

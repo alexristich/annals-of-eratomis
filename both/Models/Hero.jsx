@@ -2,7 +2,7 @@
 
 // starting with a single Hero instance for now
 // TODO figure out how to best handle storage and retrieval of hero for different players
-Heros = new Mongo.Collection('heroes');
+Heroes = new Mongo.Collection('heroes');
 
 var Schemas = {};
 
@@ -92,11 +92,12 @@ Schemas.Hero = new SimpleSchema({
     }
 });
 
-Heros.attachSchema(Schemas.Hero);
+Heroes.attachSchema(Schemas.Hero);
 
 Meteor.methods({
     addHero: function(hero) {
-        Heros.insert({
+        Heroes.insert({
+            // TODO add Hero ID using Meteor ID once login is enabled
             username: hero.username,
             xpos: hero.xpos,
             ypos: hero.ypos
@@ -114,8 +115,18 @@ Meteor.methods({
     //    Hero.currWeapon = weapon;
     //},
 
+    // moves hero in horizontal direction
+    moveHeroLaterally: function(delta) {
+        Heroes.update({}, {$inc: {xpos: delta}});
+    },
+
+    // moves hero in vertical direction
+    moveHeroVertically: function(delta) {
+        Heroes.update({}, {$inc: {ypos: delta}});
+    },
+
     removeHero() {
-        Heros.remove({});
+        Heroes.remove({});
     }
 
     // TODO add additional methods to modify Hero
