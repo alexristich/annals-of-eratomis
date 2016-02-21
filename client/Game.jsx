@@ -22,20 +22,20 @@ Game = React.createClass({
 
     handleKey(event) {
         // for now, we don't want to catch any key events while the hero is not active
-        if (this.data.hero === undefined) {
-            return;
-        }
-        event.preventDefault();
-        var keyEvent = event.key;
+        if (this.data.hero !== undefined) {
 
-        if (keyEvent === "ArrowRight") {
-            Meteor.call('moveHeroLaterally', defaultMovementRate);
-        } else if (keyEvent === "ArrowLeft") {
-            Meteor.call('moveHeroLaterally', -defaultMovementRate);
-        } else if (keyEvent === "ArrowDown") {
-            Meteor.call('moveHeroVertically', defaultMovementRate);
-        } else if (keyEvent === "ArrowUp") {
-            Meteor.call('moveHeroVertically', -defaultMovementRate);
+            event.preventDefault();
+            var keyEvent = event.key;
+
+            if (keyEvent === "ArrowRight") {
+                Meteor.call('moveHeroLaterally', defaultMovementRate);
+            } else if (keyEvent === "ArrowLeft") {
+                Meteor.call('moveHeroLaterally', -defaultMovementRate);
+            } else if (keyEvent === "ArrowDown") {
+                Meteor.call('moveHeroVertically', defaultMovementRate);
+            } else if (keyEvent === "ArrowUp") {
+                Meteor.call('moveHeroVertically', -defaultMovementRate);
+            }
         }
     },
 
