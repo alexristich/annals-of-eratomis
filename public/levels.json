@@ -5,12 +5,6 @@
     "difficulty": "Easy",
     "height": 700,
     "width": 700,
-    "villains": {
-      "melee1": 3,
-      "melee2": 0,
-      "ranged1": 2,
-      "ranged2": 0
-    },
     "obstacles": [
       {
         "_id": 1,
@@ -45,7 +39,7 @@
         "ypos": 690
       }
     ],
-    "newvillains": [
+    "villains": [
       {
         "_id": 1,
         "type": "melee1",
@@ -84,12 +78,6 @@
     "difficulty": "Intermediate",
     "height": 700,
     "width": 700,
-    "villains": {
-      "melee1": 5,
-      "melee2": 0,
-      "ranged1": 3,
-      "ranged2": 0
-    },
     "obstacles": [
       {
         "_id": 1,
@@ -124,7 +112,7 @@
         "ypos": 690
       }
     ],
-    "newvillains": [
+    "villains": [
       {
         "_id": 1,
         "type": "melee1",
