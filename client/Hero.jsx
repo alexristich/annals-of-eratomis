@@ -6,11 +6,13 @@ Hero = React.createClass({
 
     render() {
         var xpos = this.props.hero.xpos;
+        var ypos = this.props.hero.ypos;
 
         //render hero according to current xpos
         var imgStyle = {
-            position: 'relative',
-            left: xpos + 'px'
+            position: 'absolute',
+            left: xpos + 'px',
+            top: ypos + 'px'
         };
 
         return (

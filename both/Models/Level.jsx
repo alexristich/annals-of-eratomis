@@ -115,7 +115,6 @@ Meteor.methods({
     },
 
     addObstacles: function(levelId, obstacles) {
-        console.log(obstacles);
         Levels.update({id: levelId}, {
             $push: {
                 'obstacles':  {
