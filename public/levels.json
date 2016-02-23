@@ -44,6 +44,38 @@
         "xpos": 0,
         "ypos": 690
       }
+    ],
+    "newvillains": [
+      {
+        "_id": 1,
+        "type": "melee1",
+        "xpos": 50,
+        "ypos": 100
+      },
+      {
+        "_id": 2,
+        "type": "melee1",
+        "xpos": 250,
+        "ypos": 150
+      },
+      {
+        "_id": 3,
+        "type": "melee1",
+        "xpos": 500,
+        "ypos": 300
+      },
+      {
+        "_id": 4,
+        "type": "ranged1",
+        "xpos": 400,
+        "ypos": 100
+      },
+      {
+        "_id": 5,
+        "type": "ranged1",
+        "xpos": 100,
+        "ypos": 500
+      }
     ]
   },
   {
@@ -90,6 +122,56 @@
         "width": 700,
         "xpos": 0,
         "ypos": 690
+      }
+    ],
+    "newvillains": [
+      {
+        "_id": 1,
+        "type": "melee1",
+        "xpos": 50,
+        "ypos": 100
+      },
+      {
+        "_id": 2,
+        "type": "melee1",
+        "xpos": 250,
+        "ypos": 150
+      },
+      {
+        "_id": 3,
+        "type": "melee1",
+        "xpos": 500,
+        "ypos": 300
+      },
+      {
+        "_id": 4,
+        "type": "melee1",
+        "xpos": 600,
+        "ypos": 100
+      },
+      {
+        "_id": 5,
+        "type": "melee1",
+        "xpos": 250,
+        "ypos": 600
+      },
+      {
+        "_id": 6,
+        "type": "ranged1",
+        "xpos": 400,
+        "ypos": 100
+      },
+      {
+        "_id": 7,
+        "type": "ranged1",
+        "xpos": 500,
+        "ypos": 500
+      },
+      {
+        "_id": 8,
+        "type": "ranged1",
+        "xpos": 150,
+        "ypos": 600
       }
     ]
   }
