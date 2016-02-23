@@ -81,16 +81,6 @@ Meteor.methods({
         }
     },
 
-    // moves all villains in horizontal direction
-    moveVillainsLaterally: function(delta) {
-        Villains.update({}, {$inc: {xpos: delta}}, {multi: true});
-    },
-
-    // moves all villains in vertical direction
-    moveVillainsVertically: function(delta) {
-        Villains.update({}, {$inc: {ypos: delta}}, {multi: true});
-    },
-
     clearVillains: function() {
         Villains.remove({});
     }
