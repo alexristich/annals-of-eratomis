@@ -21,6 +21,8 @@ Game = React.createClass({
     },
 
     handleKey(event) {
+        // TODO handle hero movement at a global level (perhaps using React HotKeys)
+
         // for now, we don't want to catch any key events while the hero is not active
         if (this.data.hero !== undefined) {
 
@@ -58,7 +60,7 @@ Game = React.createClass({
 
     render() {
         return (
-            <div onKeyDown={this.handleKey}>
+            <div tabIndex="0" onKeyDown={this.handleKey}>
 
                 {this.renderObstacles()}
                 <header>
