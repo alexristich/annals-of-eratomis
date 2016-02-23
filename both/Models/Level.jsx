@@ -10,34 +10,37 @@ Schemas.Level = new SimpleSchema({
         label: "Level"
     },
 
-    numMelee1: {
-        type: Number,
-        label: "# Melee1",
-        optional: true
-    },
-
-    numMelee2: {
-        type: Number,
-        label: "# Melee2",
-        optional: true
-    },
-
-    numRanged1: {
-        type: Number,
-        label: "# Ranged1",
-        optional: true
-    },
-
-    numRanged2: {
-        type: Number,
-        label: "# Ranged2",
-        optional: true
-    },
-
     active: {
         type: Boolean,
         label: "Currently Active",
         optional: true
+    },
+
+    villains: {
+        type: [Object],
+        label: "Villains",
+        optional: true
+    },
+
+    // ensure all villains added to the level have the required properties
+    "villains.$._id": {
+        type: Number,
+        label: "Villain #"
+    },
+
+    "villains.$.type": {
+        type: String,
+        label: "Villain Type"
+    },
+
+    "villains.$.xpos": {
+        type: Number,
+        label: "X-Position"
+    },
+
+    "villains.$.ypos": {
+        type: Number,
+        label: "Y-Position"
     },
 
     obstacles: {
@@ -93,28 +96,22 @@ Meteor.methods({
     },
 
     parseLevel: function(level) {
-        // should the level be created here?
-        //var test = level.obstacles[0]._id;
-        var obstacles = level.obstacles;
-        Meteor.call("createLevel", level._id, level.villains, level.obstacles);
+        var levelId = level._id;
 
-        // TODO add method to parse obstacles
-    },
-
-    createLevel: function(levelId, villains, obstacles) {
+        // add initial entry for level
+        // TODO set additional level properties when parsing the level
         Levels.upsert({id: levelId}, {
             $set: {
-                id: levelId,
-                numMelee1: villains.melee1,
-                numMelee2: villains.melee2,
-                numRanged1: villains.ranged1,
-                numRanged2: villains.ranged2
+                id: levelId
             }
         });
-        Meteor.call("addObstacles", levelId, obstacles);
+
+        Meteor.call("parseObstacles", levelId, level.obstacles);
+        Meteor.call("parseVillains", levelId, level.villains);
+
     },
 
-    addObstacles: function(levelId, obstacles) {
+    parseObstacles: function(levelId, obstacles) {
         Levels.update({id: levelId}, {
             $push: {
                 'obstacles':  {
@@ -122,7 +119,16 @@ Meteor.methods({
                 }
             }
         });
+    },
 
+    parseVillains: function(levelId, villains) {
+        Levels.update({id: levelId}, {
+            $push: {
+                'villains': {
+                    $each: villains
+                }
+            }
+        });
     },
 
     initLevels: function() {
@@ -142,10 +148,7 @@ Meteor.methods({
         Levels.update(thisLevel, {$set: {active: true}});
 
         // add the appropriate villains for the given level
-        Meteor.call("addVillain", "melee1", thisLevel.numMelee1);
-        Meteor.call("addVillain", "melee2", thisLevel.numMelee2);
-        Meteor.call("addVillain", "ranged1", thisLevel.numRanged1);
-        Meteor.call("addVillain", "ranged2", thisLevel.numRanged2);
+        Meteor.call("summonVillains", thisLevel.villains);
     },
 
     clearLevels: function() {

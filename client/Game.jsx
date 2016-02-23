@@ -59,8 +59,15 @@ Game = React.createClass({
     },
 
     render() {
+        var gameBackground = {
+            position: 'absolute',
+            width: '700px',
+            height: '700px',
+            backgroundColor: 'white'
+        };
+
         return (
-            <div tabIndex="0" onKeyDown={this.handleKey}>
+            <div style={gameBackground} tabIndex="0" onKeyDown={this.handleKey}>
 
                 {this.renderObstacles()}
                 <header>
@@ -76,9 +83,9 @@ Game = React.createClass({
                 </header>
                 <br />
                 <LevelPicker />
-                <ul>
+                <div>
                     {this.renderVillains()}
-                </ul>
+                </div>
             </div>
         );
     }

@@ -12,7 +12,8 @@ Schemas.Villain = new SimpleSchema({
 
     alive: {
         type: Boolean,
-        label: "Alive"
+        label: "Alive",
+        optional: true
     },
 
     hitPoints: {
@@ -47,34 +48,30 @@ Schemas.Villain = new SimpleSchema({
 
     source: {
         type: String,
-        label: "Image"
+        label: "Image",
+        optional: true
     }
 });
 
 Villains.attachSchema(Schemas.Villain);
 
 Meteor.methods({
-    // adds n villains to the list of villains using the given type
-    addVillain: function(type, n) {
-        for (i = 0; i < n; i++) {
-            Villains.insert({
-                type: type,
-                alive: true,
-                xpos: 300,
-                ypos: 300,
-                source: '/' + type + '.jpg'
-            })
+    // adds villains to the list of villains using the given type
+    summonVillains: function(villains) {
+        for (i=0; i<villains.length; i++) {
+            Meteor.call("summonVillain", villains[i]);
         }
     },
 
-    // moves all villains in horizontal direction
-    moveVillainsLaterally: function(delta) {
-        Villains.update({}, {$inc: {xpos: delta}}, {multi: true});
-    },
-
-    // moves all villains in vertical direction
-    moveVillainsVertically: function(delta) {
-        Villains.update({}, {$inc: {ypos: delta}}, {multi: true});
+    summonVillain: function(villain) {
+        // TODO call methods to determine appropriate speed and hit points based on villain type
+        Villains.insert({
+            type: villain.type,
+            xpos: villain.xpos,
+            ypos: villain.ypos,
+            alive: true,
+            source: '/' + villain.type + '.jpg'
+        })
     },
 
     clearVillains: function() {
