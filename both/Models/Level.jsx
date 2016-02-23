@@ -96,26 +96,22 @@ Meteor.methods({
     },
 
     parseLevel: function(level) {
-        // should the level be created here?
-        //var test = level.obstacles[0]._id;
-        var obstacles = level.obstacles;
+        var levelId = level._id;
 
-        Meteor.call("createLevel", level._id, level.obstacles, level.villains);
-
-        // TODO add method to parse obstacles
-    },
-
-    createLevel: function(levelId, obstacles, villains) {
+        // add initial entry for level
+        // TODO set additional level properties when parsing the level
         Levels.upsert({id: levelId}, {
             $set: {
                 id: levelId
             }
         });
-        Meteor.call("addObstacles", levelId, obstacles);
-        Meteor.call("addVillains", levelId, villains);
+
+        Meteor.call("parseObstacles", levelId, level.obstacles);
+        Meteor.call("parseVillains", levelId, level.villains);
+
     },
 
-    addObstacles: function(levelId, obstacles) {
+    parseObstacles: function(levelId, obstacles) {
         Levels.update({id: levelId}, {
             $push: {
                 'obstacles':  {
@@ -125,7 +121,7 @@ Meteor.methods({
         });
     },
 
-    addVillains: function(levelId, villains) {
+    parseVillains: function(levelId, villains) {
         Levels.update({id: levelId}, {
             $push: {
                 'villains': {
