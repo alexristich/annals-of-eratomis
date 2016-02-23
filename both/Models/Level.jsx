@@ -152,7 +152,7 @@ Meteor.methods({
         Levels.update(thisLevel, {$set: {active: true}});
 
         // add the appropriate villains for the given level
-        Meteor.call("addVillainsNew", thisLevel.villains);
+        Meteor.call("summonVillains", thisLevel.villains);
     },
 
     clearLevels: function() {
