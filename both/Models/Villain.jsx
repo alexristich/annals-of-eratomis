@@ -12,7 +12,8 @@ Schemas.Villain = new SimpleSchema({
 
     alive: {
         type: Boolean,
-        label: "Alive"
+        label: "Alive",
+        optional: true
     },
 
     hitPoints: {
@@ -47,7 +48,8 @@ Schemas.Villain = new SimpleSchema({
 
     source: {
         type: String,
-        label: "Image"
+        label: "Image",
+        optional: true
     }
 });
 
@@ -63,6 +65,18 @@ Meteor.methods({
                 xpos: 300,
                 ypos: 300,
                 source: '/' + type + '.jpg'
+            })
+        }
+    },
+
+    addVillainsNew: function(villains) {
+        for (i=0; i<villains.length; i++) {
+            Villains.insert({
+                type: villains[i].type,
+                alive: true,
+                xpos: villains[i].xpos,
+                ypos: villains[i].ypos,
+                source: '/' + villains[i].type + '.jpg'
             })
         }
     },
