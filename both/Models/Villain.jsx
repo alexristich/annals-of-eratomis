@@ -38,6 +38,16 @@ Schemas.Villain = new SimpleSchema({
         min: 0
     },
 
+    width: {
+        type: Number,
+        label: "Width"
+    },
+
+    height: {
+        type: Number,
+        label: "Height"
+    },
+
     speed: {
         type: Number,
         label: "Movement Speed",
@@ -65,10 +75,13 @@ Meteor.methods({
 
     summonVillain: function(villain) {
         // TODO call methods to determine appropriate speed and hit points based on villain type
+        // TODO decide whether height and width should be hardcoded
         Villains.insert({
             type: villain.type,
             xpos: villain.xpos,
             ypos: villain.ypos,
+            height: 50,
+            width: 50,
             alive: true,
             source: '/' + villain.type + '.jpg'
         })

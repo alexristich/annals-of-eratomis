@@ -44,7 +44,7 @@ Game = React.createClass({
     renderHero() {
         // we will only be rendering one hero at any give time
         if (this.data.hero !== undefined) {
-        return <Hero key={this.data.hero._id} hero={this.data.hero} />
+            return <Hero key={this.data.hero._id} hero={this.data.hero} />
         }
     },
 
@@ -59,31 +59,31 @@ Game = React.createClass({
     },
 
     render() {
-        var gameBackground = {
-            position: 'absolute',
+
+        var backgroundStyle = {
             width: '700px',
             height: '700px',
-            backgroundColor: 'white'
+            //maxWidth: '700px',
+            //maxHeight: '700px',
+            //margin: '0 auto',
+            //minHeight: '100%',
+            background: 'white'
         };
 
+        var heroActive = (this.data.hero !== undefined);
+        var levelActive = (this.data.level !== undefined);
+
         return (
-            <div style={gameBackground} tabIndex="0" onKeyDown={this.handleKey}>
+            <div style={backgroundStyle} tabIndex="0" onKeyDown={this.handleKey}>
 
-                {this.renderObstacles()}
-                <header>
-                    <h1>Hero!</h1>
-                </header>
-                <HeroCreator />
-                <div>
-                        {this.renderHero()}
-                </div>
+                    <HeroCreator heroActive={heroActive} />
 
-                <header>
-                    <h1>Villains!</h1>
-                </header>
-                <br />
-                <LevelPicker />
+                    <LevelPicker heroActive={heroActive} levelActive={levelActive}/>
+
+
                 <div>
+                    {this.renderHero()}
+                    {this.renderObstacles()}
                     {this.renderVillains()}
                 </div>
             </div>

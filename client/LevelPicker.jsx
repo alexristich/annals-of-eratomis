@@ -1,6 +1,11 @@
 // The widget where a user can select their desired difficulty level
 LevelPicker = React.createClass({
 
+    propTypes: {
+        heroActive: React.PropTypes.bool.isRequired,
+        levelActive: React.PropTypes.bool.isRequired
+    },
+
     mixins: [ReactMeteorData],
 
     getMeteorData() {
@@ -32,8 +37,42 @@ LevelPicker = React.createClass({
     },
 
     render() {
+        var levelSelectStyle;
+
+        if (!this.props.heroActive && !this.props.levelActive) {
+            levelSelectStyle = {
+                position: 'absolute',
+                top: -500 + 'px',
+                left: -500 + 'px',
+                textAlign: 'center',
+                opacity: 0
+            };
+        } else if (!this.props.levelActive) {
+            // hero has been created, so we can show the LevelPicker element
+            levelSelectStyle = {
+                position: 'absolute',
+                top: 240 + 'px',
+                left: 20 + 'px',
+                textAlign: 'center',
+                transform: 'translateX(200px)',
+                transition: 'transform 1s ease'
+            };
+        } else {
+            // level has been selected, so we hide the level picker
+            levelSelectStyle = {
+                position: 'absolute',
+                top: 240 + 'px',
+                left: 220 + 'px',
+                textAlign: 'center',
+                transform: 'translateX(100%) scale(0,0)',
+                transition: 'transform 1.5s ease'
+            };
+        }
+
+
         return (
-            <div>
+            <div style={levelSelectStyle}>
+                <h1>Choose Your Level:</h1>
                 <select name="levels" id="levels">
                     <option value="0">Select a level...</option>
                     {this.showLevels()}

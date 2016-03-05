@@ -48,6 +48,16 @@ Schemas.Hero = new SimpleSchema({
         min: 0
     },
 
+    width: {
+        type: Number,
+        label: "Width"
+    },
+
+    height: {
+        type: Number,
+        label: "Height"
+    },
+
     movSpeed: {
         type: Number,
         label: "Movement Speed",
@@ -100,7 +110,9 @@ Meteor.methods({
             // TODO add Hero ID using Meteor ID once login is enabled
             username: hero.username,
             xpos: hero.xpos,
-            ypos: hero.ypos
+            ypos: hero.ypos,
+            width: hero.width,
+            height: hero.height
         })
     },
     //adjustBalance(delta) {
@@ -117,12 +129,70 @@ Meteor.methods({
 
     // moves hero in horizontal direction
     moveHeroLaterally: function(delta) {
-        Heroes.update({}, {$inc: {xpos: delta}});
+        var validMove = true;
+        var hero = Heroes.findOne({});
+        newXPos = hero.xpos + delta;
+        hero.xpos = newXPos;
+
+        var level = Levels.findOne({active: true});
+
+        if (level) {
+            // initially, only do the check when level is active
+            var villains = Villains.find({}).fetch();
+            var obstacles = level.obstacles;
+
+            for (var i = 0; i < villains.length; i++) {
+                if (villains[i].xpos < hero.xpos + hero.width && villains[i].xpos + villains[i].width > hero.xpos &&
+                    villains[i].ypos < hero.ypos + hero.height && villains[i].ypos + villains[i].height > hero.ypos) {
+                    validMove = false;
+                }
+            }
+            for (var j = 0; j < obstacles.length; j++) {
+                if (obstacles[j].xpos < hero.xpos + hero.width && obstacles[j].xpos + obstacles[j].width > hero.xpos &&
+                    obstacles[j].ypos < hero.ypos + hero.height && obstacles[j].ypos + obstacles[j].height > hero.ypos) {
+                    validMove = false;
+                }
+            }
+        }
+
+        if (validMove) {
+            Heroes.update({}, {$inc: {xpos: delta}});
+        }
     },
 
     // moves hero in vertical direction
     moveHeroVertically: function(delta) {
-        Heroes.update({}, {$inc: {ypos: delta}});
+        var validMove = true;
+        var hero = Heroes.findOne({});
+        newYPos = hero.ypos + delta;
+        hero.ypos = newYPos;
+
+        var level = Levels.findOne({active: true});
+
+        if (level) {
+            // initially, only do the check when level is active
+            var villains = Villains.find({}).fetch();
+            var obstacles = level.obstacles;
+
+            for (var i = 0; i < villains.length; i++) {
+                console.log(villains[i]);
+                if (villains[i].xpos < hero.xpos + hero.width && villains[i].xpos + villains[i].width > hero.xpos &&
+                    villains[i].ypos < hero.ypos + hero.height && villains[i].ypos + villains[i].height > hero.ypos) {
+                    validMove = false;
+                }
+            }
+            console.log("Completed checking villains");
+            for (var j = 0; j < obstacles.length; j++) {
+                if (obstacles[j].xpos < hero.xpos + hero.width && obstacles[j].xpos + obstacles[j].width > hero.xpos &&
+                    obstacles[j].ypos < hero.ypos + hero.height && obstacles[j].ypos + obstacles[j].height > hero.ypos) {
+                    validMove = false;
+                }
+            }
+        }
+
+        if (validMove) {
+            Heroes.update({}, {$inc: {ypos: delta}});
+        }
     },
 
     removeHero() {
