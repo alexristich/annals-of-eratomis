@@ -59,24 +59,31 @@ Game = React.createClass({
     },
 
     render() {
-        var gameBackground = {
-            position: 'absolute',
+
+        var backgroundStyle = {
             width: '700px',
             height: '700px',
-            backgroundColor: 'white'
+            //maxWidth: '700px',
+            //maxHeight: '700px',
+            //margin: '0 auto',
+            //minHeight: '100%',
+            background: 'white'
         };
 
-        return (
-            <div style={gameBackground} tabIndex="0" onKeyDown={this.handleKey}>
+        var heroActive = (this.data.hero !== undefined);
+        var levelActive = (this.data.level !== undefined);
 
-                {this.renderObstacles()}
-                <HeroCreator />
+        return (
+            <div style={backgroundStyle} tabIndex="0" onKeyDown={this.handleKey}>
+
+                    <HeroCreator heroActive={heroActive} />
+
+                    <LevelPicker heroActive={heroActive} levelActive={levelActive}/>
+
+
                 <div>
-                        {this.renderHero()}
-                </div>
-                <br />
-                <LevelPicker />
-                <div>
+                    {this.renderHero()}
+                    {this.renderObstacles()}
                     {this.renderVillains()}
                 </div>
             </div>

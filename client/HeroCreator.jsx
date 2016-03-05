@@ -1,10 +1,8 @@
 // Represents the menu through which a player can create a Hero
 HeroCreator = React.createClass({
 
-    getInitialState() {
-        return {
-            heroSelected: false
-        }
+    propTypes: {
+        heroActive: React.PropTypes.bool.isRequired
     },
 
     createHero(e) {
@@ -13,22 +11,18 @@ HeroCreator = React.createClass({
         //creating Hero
         var hero = {
             username: "newHero",
-            xpos: 300,
-            ypos: 300
+            xpos: 100,
+            ypos: 100
         };
         Meteor.call('addHero', hero);
-
-        this.setState({
-            heroSelected: true
-        });
     },
 
     render() {
-        if (!this.state.heroSelected) {
+        if (!this.props.heroActive) {
             var heroSelectStyle = {
                 position: 'absolute',
-                top: 50 + 'px',
-                left: 230 + 'px',
+                top: 240 + 'px',
+                left: 220 + 'px',
                 textAlign: 'center'
             };
         } else {
@@ -36,21 +30,16 @@ HeroCreator = React.createClass({
             // to prevent user from adding multiple heroes
             var heroSelectStyle = {
                 position: 'absolute',
-                top: 50 + 'px',
-                left: 230 + 'px',
+                top: 240 + 'px',
+                left: 220 + 'px',
                 textAlign: 'center',
-                transform: 'scale(0,0)',
+                //opacity: 0,
+                transform: 'translateX(100%) scale(0,0)',
                 transition: 'transform 0.5s ease'
 
             };
         }
 
-        //var heroSelectStyle = {
-        //    position: 'absolute',
-        //    top: 50 + 'px',
-        //    left: 230 + 'px',
-        //    "textAlign": 'center'
-        //};
 
         return(
             <div style={heroSelectStyle}>
