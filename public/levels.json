@@ -10,7 +10,7 @@
         "_id": 1,
         "type": "wall",
         "height": 700,
-        "width": 10,
+        "width": 25,
         "xpos": 0,
         "ypos": 0
       },
@@ -18,14 +18,14 @@
         "_id": 2,
         "type": "wall",
         "height": 700,
-        "width": 10,
-        "xpos": 690,
+        "width": 25,
+        "xpos": 675,
         "ypos": 0
       },
       {
         "_id": 3,
         "type": "wall",
-        "height": 10,
+        "height": 25,
         "width": 700,
         "xpos": 0,
         "ypos": 0
@@ -33,10 +33,10 @@
       {
         "_id": 4,
         "type": "wall",
-        "height": 10,
+        "height": 25,
         "width": 700,
         "xpos": 0,
-        "ypos": 690
+        "ypos": 675
       }
     ],
     "villains": [

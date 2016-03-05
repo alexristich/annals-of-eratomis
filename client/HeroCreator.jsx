@@ -12,7 +12,9 @@ HeroCreator = React.createClass({
         var hero = {
             username: "newHero",
             xpos: 100,
-            ypos: 100
+            ypos: 100,
+            width: 40,
+            height: 50
         };
         Meteor.call('addHero', hero);
     },
@@ -35,7 +37,7 @@ HeroCreator = React.createClass({
                 textAlign: 'center',
                 //opacity: 0,
                 transform: 'translateX(100%) scale(0,0)',
-                transition: 'transform 0.5s ease'
+                transition: 'transform 1.5s ease'
 
             };
         }

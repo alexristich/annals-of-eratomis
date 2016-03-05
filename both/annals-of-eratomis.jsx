@@ -4,7 +4,7 @@
 //Levels = new Mongo.Collection("levels");
 
 // set default movement rate for game
-defaultMovementRate = 20;
+defaultMovementRate = 25;
 
 if (Meteor.isClient) {
     // code executed on the client

@@ -64,8 +64,8 @@ LevelPicker = React.createClass({
                 top: 240 + 'px',
                 left: 220 + 'px',
                 textAlign: 'center',
-                transform: 'translateX(600px) scale(0,0)',
-                transition: 'transform 0.5s ease'
+                transform: 'translateX(100%) scale(0,0)',
+                transition: 'transform 1.5s ease'
             };
         }
 

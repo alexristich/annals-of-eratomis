@@ -44,7 +44,7 @@ Game = React.createClass({
     renderHero() {
         // we will only be rendering one hero at any give time
         if (this.data.hero !== undefined) {
-        return <Hero key={this.data.hero._id} hero={this.data.hero} />
+            return <Hero key={this.data.hero._id} hero={this.data.hero} />
         }
     },
 
