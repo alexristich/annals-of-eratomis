@@ -35,12 +35,15 @@ LevelPicker = React.createClass({
 
         var levelSelectStyle = {
             position: 'absolute',
-            top: 350 + 'px',
-            left: 350 + 'px'
+            top: 240 + 'px',
+            left: 220 + 'px',
+            "text-align": 'center'
         };
 
         return (
             <div style={levelSelectStyle}>
+                <h1>Choose Your Level:</h1>
+                <br />
                 <select name="levels" id="levels">
                     <option value="0">Select a level...</option>
                     {this.showLevels()}
