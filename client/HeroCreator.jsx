@@ -30,8 +30,16 @@ HeroCreator = React.createClass({
             return (<div></div>);
         }
 
+        var heroSelectStyle = {
+            position: 'absolute',
+            top: 50 + 'px',
+            left: 230 + 'px',
+            "text-align": 'center'
+        };
+
         return(
-            <div>
+            <div style={heroSelectStyle}>
+                <h1>Name Your Hero!</h1>
                 <form onSubmit={this.createHero}>
                     <input
                         type="text"

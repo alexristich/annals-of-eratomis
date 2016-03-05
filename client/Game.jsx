@@ -70,17 +70,10 @@ Game = React.createClass({
             <div style={gameBackground} tabIndex="0" onKeyDown={this.handleKey}>
 
                 {this.renderObstacles()}
-                <header>
-                    <h1>Hero!</h1>
-                </header>
                 <HeroCreator />
                 <div>
                         {this.renderHero()}
                 </div>
-
-                <header>
-                    <h1>Villains!</h1>
-                </header>
                 <br />
                 <LevelPicker />
                 <div>
