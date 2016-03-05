@@ -37,7 +37,7 @@ LevelPicker = React.createClass({
             position: 'absolute',
             top: 240 + 'px',
             left: 220 + 'px',
-            "text-align": 'center'
+            textAlign: 'center'
         };
 
         return (

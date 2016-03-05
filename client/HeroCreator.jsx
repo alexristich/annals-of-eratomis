@@ -24,18 +24,33 @@ HeroCreator = React.createClass({
     },
 
     render() {
-        if (this.state.heroSelected) {
+        if (!this.state.heroSelected) {
+            var heroSelectStyle = {
+                position: 'absolute',
+                top: 50 + 'px',
+                left: 230 + 'px',
+                textAlign: 'center'
+            };
+        } else {
             // hero has been created, so we can hide this HeroCreator component
-            // to prevent user from adding multiple heros
-            return (<div></div>);
+            // to prevent user from adding multiple heroes
+            var heroSelectStyle = {
+                position: 'absolute',
+                top: 50 + 'px',
+                left: 230 + 'px',
+                textAlign: 'center',
+                transform: 'scale(0,0)',
+                transition: 'transform 0.5s ease'
+
+            };
         }
 
-        var heroSelectStyle = {
-            position: 'absolute',
-            top: 50 + 'px',
-            left: 230 + 'px',
-            "text-align": 'center'
-        };
+        //var heroSelectStyle = {
+        //    position: 'absolute',
+        //    top: 50 + 'px',
+        //    left: 230 + 'px',
+        //    "textAlign": 'center'
+        //};
 
         return(
             <div style={heroSelectStyle}>
