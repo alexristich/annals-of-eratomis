@@ -5,6 +5,11 @@ Villains = new Mongo.Collection('villains');
 var Schemas = {};
 
 Schemas.Villain = new SimpleSchema({
+    _id: {
+        type: Number,
+        label: "Villain ID"
+    },
+
     type: {
         type: String,
         label: "Villain Type"
@@ -77,6 +82,7 @@ Meteor.methods({
         // TODO call methods to determine appropriate speed and hit points based on villain type
         // TODO decide whether height and width should be hardcoded
         Villains.insert({
+            _id: villain._id,
             type: villain.type,
             xpos: villain.xpos,
             ypos: villain.ypos,
@@ -85,6 +91,10 @@ Meteor.methods({
             alive: true,
             source: '/' + villain.type + '.jpg'
         })
+    },
+
+    killVillain: function(villainId) {
+        Villains.remove({_id: villainId});
     },
 
     clearVillains: function() {
