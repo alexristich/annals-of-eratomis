@@ -15,6 +15,10 @@ Game = React.createClass({
     },
 
     renderVillains() {
+        //if (this.data.villains.length === 0 && this.data.level) {
+        //    Meteor.call("endLevel", this.data.level.id);
+        //}
+
         return this.data.villains.map((villain) => {
             return <Villain key={villain._id} villain={villain} />;
         })
@@ -80,6 +84,7 @@ Game = React.createClass({
 
                     <LevelPicker heroActive={heroActive} levelActive={levelActive}/>
 
+                    <LevelEndSplash levelActive={levelActive} villains={this.data.villains} />
 
                 <div>
                     {this.renderHero()}

@@ -127,15 +127,9 @@ Meteor.methods({
     //    Hero.currWeapon = weapon;
     //},
 
-    // moves hero in horizontal direction
-    moveHeroLaterally: function(delta) {
-        var validMove = true;
-        var hero = Heroes.findOne({});
-        newXPos = hero.xpos + delta;
-        hero.xpos = newXPos;
-
-        var level = Levels.findOne({active: true});
-
+    // tells whether there is a collision or not to determine whether the move is valid;
+    // if the player collides with a villain, the villain will be removed from the screen
+    checkForCollisions: function(hero, level) {
         if (level) {
             // initially, only do the check when level is active
             var villains = Villains.find({}).fetch();
@@ -144,16 +138,31 @@ Meteor.methods({
             for (var i = 0; i < villains.length; i++) {
                 if (villains[i].xpos < hero.xpos + hero.width && villains[i].xpos + villains[i].width > hero.xpos &&
                     villains[i].ypos < hero.ypos + hero.height && villains[i].ypos + villains[i].height > hero.ypos) {
-                    validMove = false;
+                    Meteor.call("killVillain", villains[i]);
+                    return false;
                 }
             }
             for (var j = 0; j < obstacles.length; j++) {
                 if (obstacles[j].xpos < hero.xpos + hero.width && obstacles[j].xpos + obstacles[j].width > hero.xpos &&
                     obstacles[j].ypos < hero.ypos + hero.height && obstacles[j].ypos + obstacles[j].height > hero.ypos) {
-                    validMove = false;
+                    return false;
                 }
             }
         }
+
+        return true;
+    },
+
+    // moves hero in horizontal direction
+    moveHeroLaterally: function(delta) {
+        var validMove;
+        var hero = Heroes.findOne({});
+        newXPos = hero.xpos + delta;
+        hero.xpos = newXPos;
+
+        var level = Levels.findOne({active: true});
+
+        validMove = Meteor.call("checkForCollisions", hero, level);
 
         if (validMove) {
             Heroes.update({}, {$inc: {xpos: delta}});
@@ -162,33 +171,14 @@ Meteor.methods({
 
     // moves hero in vertical direction
     moveHeroVertically: function(delta) {
-        var validMove = true;
+        var validMove;
         var hero = Heroes.findOne({});
         newYPos = hero.ypos + delta;
         hero.ypos = newYPos;
 
         var level = Levels.findOne({active: true});
 
-        if (level) {
-            // initially, only do the check when level is active
-            var villains = Villains.find({}).fetch();
-            var obstacles = level.obstacles;
-
-            for (var i = 0; i < villains.length; i++) {
-                console.log(villains[i]);
-                if (villains[i].xpos < hero.xpos + hero.width && villains[i].xpos + villains[i].width > hero.xpos &&
-                    villains[i].ypos < hero.ypos + hero.height && villains[i].ypos + villains[i].height > hero.ypos) {
-                    validMove = false;
-                }
-            }
-            console.log("Completed checking villains");
-            for (var j = 0; j < obstacles.length; j++) {
-                if (obstacles[j].xpos < hero.xpos + hero.width && obstacles[j].xpos + obstacles[j].width > hero.xpos &&
-                    obstacles[j].ypos < hero.ypos + hero.height && obstacles[j].ypos + obstacles[j].height > hero.ypos) {
-                    validMove = false;
-                }
-            }
-        }
+        validMove = Meteor.call("checkForCollisions", hero, level);
 
         if (validMove) {
             Heroes.update({}, {$inc: {ypos: delta}});
