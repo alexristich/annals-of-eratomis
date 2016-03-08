@@ -151,6 +151,12 @@ Meteor.methods({
         Meteor.call("summonVillains", thisLevel.villains);
     },
 
+    // endLevel is called when there are no remaining villains in the level
+    endLevel: function() {
+        var prevLevel = Levels.findOne({active:true});
+        Levels.update(prevLevel, {$set: {active: false}});
+    },
+
     clearLevels: function() {
         Levels.remove({});
     }
