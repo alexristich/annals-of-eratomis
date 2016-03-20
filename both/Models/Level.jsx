@@ -3,6 +3,8 @@
 Levels = new Mongo.Collection('levels');
 
 var Schemas = {};
+var screenX;
+var screenY;
 
 Schemas.Level = new SimpleSchema({
     id: {
@@ -112,13 +114,57 @@ Meteor.methods({
     },
 
     parseObstacles: function(levelId, obstacles) {
+        var tempObstacles = [
+            {
+                "_id": 1,
+                "type": "wall",
+                "height": screenY,
+                "width": 10,
+                "xpos": 0,
+                "ypos": 0
+            },
+            {
+                "_id": 2,
+                "type": "wall",
+                "height": screenY,
+                "width": 10,
+                "xpos": screenX-10,
+                "ypos": 0
+            },
+            {
+                "_id": 3,
+                "type": "wall",
+                "height": 10,
+                "width": screenX,
+                "xpos": 0,
+                "ypos": 0
+            },
+            {
+                "_id": 4,
+                "type": "wall",
+                "height": 10,
+                "width": screenX,
+                "xpos": 0,
+                "ypos": screenY-10
+            }
+        ];
+
         Levels.update({id: levelId}, {
             $push: {
                 'obstacles':  {
-                    $each: obstacles
+                    $each: tempObstacles
                 }
             }
         });
+
+        // temporarily comment this out while manually adding obstacles
+        // Levels.update({id: levelId}, {
+        //     $push: {
+        //         'obstacles':  {
+        //             $each: obstacles
+        //         }
+        //     }
+        // });
     },
 
     parseVillains: function(levelId, villains) {
@@ -131,7 +177,9 @@ Meteor.methods({
         });
     },
 
-    initLevels: function() {
+    initLevels: function(x, y) {
+        screenX = x;
+        screenY = y;
         // TODO add "meteor add http" to build instructions
         HTTP.get(Meteor.absoluteUrl("levels.json"), function(err, result) {
             Meteor.call("parseLevels", result.data);

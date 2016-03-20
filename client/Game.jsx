@@ -79,8 +79,10 @@ Game = React.createClass({
     render() {
 
         var backgroundStyle = {
-            width: '700px',
-            height: '700px',
+            width: screenX,
+            height: screenY,
+            // width: '700px',
+            // height: '700px',
             //maxWidth: '700px',
             //maxHeight: '700px',
             //margin: '0 auto',

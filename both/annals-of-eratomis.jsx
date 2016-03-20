@@ -15,6 +15,8 @@ if (Meteor.isClient) {
     Meteor.subscribe("heroes");
 
     Meteor.startup(function() {
+        screenX = window.innerWidth;
+        screenY = window.innerHeight;
         // Use Meteor.startup to render the component after the page is ready
         ReactDOM.render(<Game />, document.getElementById("render-target"));
 
@@ -25,7 +27,7 @@ if (Meteor.isClient) {
 
         // initialization of levels
         // TODO move this to the Game component
-        Meteor.call('initLevels');
+        Meteor.call('initLevels', screenX, screenY);
 
         // storing previous game data until fully incorporated in levels.json
         //Meteor.call('createLevel', 2, 5, 0, 3, 0, false);
