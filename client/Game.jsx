@@ -45,6 +45,20 @@ Game = React.createClass({
         }
     },
 
+    handleClick(event) {
+        // TODO handle hero movement at a global level (perhaps using React HotKeys)
+
+        // for now, we don't want to catch any key events while the hero is not active
+        if (this.data.level !== undefined) {
+
+            event.preventDefault();
+            console.log("X coordinate: " + event.pageX);
+            console.log("Y coordinate: " + event.pageY);
+
+            Meteor.call('moveHeroToCursor', event.pageX, event.pageY);
+        }
+    },
+
     renderHero() {
         // we will only be rendering one hero at any give time
         if (this.data.hero !== undefined) {
@@ -78,7 +92,7 @@ Game = React.createClass({
         var levelActive = (this.data.level !== undefined);
 
         return (
-            <div style={backgroundStyle} tabIndex="0" onKeyDown={this.handleKey}>
+            <div style={backgroundStyle} tabIndex="0" onKeyDown={this.handleKey} onClick={this.handleClick}>
 
                     <HeroCreator heroActive={heroActive} />
 

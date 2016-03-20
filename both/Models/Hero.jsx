@@ -185,6 +185,23 @@ Meteor.methods({
         }
     },
 
+    moveHeroToCursor: function(x, y) {
+        var newX = 50*Math.floor(x/50);
+        var newY = 50*Math.floor(y/50);
+
+        var hero = Heroes.findOne({});
+        hero.xpos = newX;
+        hero.ypos = newY;
+        var level = Levels.findOne({active: true});
+
+        Meteor.call("checkForCollisions", hero, level);
+
+        Heroes.update({}, {$set: {
+            xpos: newX,
+            ypos: newY
+        }})
+    },
+
     removeHero() {
         Heroes.remove({});
     }
