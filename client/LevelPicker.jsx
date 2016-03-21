@@ -69,6 +69,9 @@ LevelPicker = React.createClass({
             };
         }
 
+        // var innerWidth = "window inner width: " + window.innerWidth;
+        // var screenX = "window screen x: " + window.screenX;
+        // var cordovaCheck = "Running in Cordova? " + Meteor.isCordova;
 
         return (
             <div style={levelSelectStyle}>

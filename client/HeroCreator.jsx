@@ -7,16 +7,41 @@ HeroCreator = React.createClass({
 
     createHero(e) {
         e.preventDefault();
+        
+        var hero;
 
-        //creating Hero
-        var hero = {
-            username: "newHero",
-            xpos: 100,
-            ypos: 100,
-            width: 40,
-            height: 50
-        };
-        Meteor.call('addHero', hero);
+        // set hero size and default pos based on gameMode
+        if (gameMode === "mobile") {
+            hero = {
+                width: 20,
+                height: 25,
+                xpos: 180,
+                ypos: 100
+            }
+        } else if (gameMode === "web-sm") {
+            hero = {
+                width: 26,
+                height: 32,
+                xpos: 240,
+                ypos: 100
+            }
+        } else if (gameMode === "web-md") {
+            hero = {
+                width: 36,
+                height: 45,
+                xpos: 360,
+                ypos: 100
+            }
+        } else {
+            hero = {
+                width: 50,
+                height: 63,
+                xpos: 485,
+                ypos: 100
+            }
+        }
+        
+        Meteor.call('addHero', hero, gameMode);
     },
 
     render() {

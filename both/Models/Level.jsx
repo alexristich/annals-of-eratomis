@@ -6,6 +6,8 @@ var Schemas = {};
 var screenX;
 var screenY;
 
+
+
 Schemas.Level = new SimpleSchema({
     id: {
         type: Number,

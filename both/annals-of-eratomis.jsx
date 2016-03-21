@@ -10,6 +10,30 @@ if (Meteor.isClient) {
     Meteor.subscribe("heroes");
 
     Meteor.startup(function() {
+
+        var screenX = window.innerWidth;
+        var screenY = window.innerHeight;
+
+        if (Meteor.isCordova) {
+            gameWidth = 375;
+            gameHeight = 667;
+            gameMode = "mobile";
+        } else {
+            if (screenX < 750) {
+                gameWidth = 500;
+                gameHeight = 300;
+                gameMode = "web-sm";
+            } else if (screenX < 1000) {
+                gameWidth = 750;
+                gameHeight = 470;
+                gameMode = "web-md";
+            } else {
+                gameWidth = 1000;
+                gameHeight = 625;
+                gameMode = "web-lg";
+            }
+        }
+
         screenX = window.innerWidth;
         screenY = window.innerHeight;
         // Use Meteor.startup to render the component after the page is ready
@@ -22,7 +46,8 @@ if (Meteor.isClient) {
 
         // initialization of levels
         // TODO move this to the Game component
-        Meteor.call('initLevels', screenX, screenY);
+        Meteor.call('initLevels', gameWidth, gameHeight);
+        Meteor.call("setMovementRate", gameMode);
 
     });
 }

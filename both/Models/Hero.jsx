@@ -5,6 +5,7 @@
 Heroes = new Mongo.Collection('heroes');
 
 var Schemas = {};
+var defaultMovementRate;
 
 Schemas.Hero = new SimpleSchema({
     username: {
@@ -106,15 +107,26 @@ Heroes.attachSchema(Schemas.Hero);
 
 Meteor.methods({
     addHero: function(hero) {
+
+
+        // add new hero
         Heroes.insert({
             // TODO add Hero ID using Meteor ID once login is enabled
-            username: hero.username,
+            // username is being set manually for now to support easier testability
+            username: "hero",
             xpos: hero.xpos,
             ypos: hero.ypos,
             width: hero.width,
             height: hero.height
-        })
+        });
+
+
     },
+
+    setMovementRate: function(mode) {
+        defaultMovementRate = 20;
+    },
+
     //adjustBalance(delta) {
     //    Hero.gold += delta;
     //},
@@ -154,7 +166,15 @@ Meteor.methods({
     },
 
     // moves hero in horizontal direction
-    moveHeroLaterally: function(delta) {
+    moveHeroLaterally: function(dir) {
+        var delta;
+
+        if (dir === "right") {
+            delta = defaultMovementRate;
+        } else {
+            delta = -defaultMovementRate;
+        }
+
         var validMove;
         var hero = Heroes.findOne({});
         newXPos = hero.xpos + delta;
@@ -170,7 +190,14 @@ Meteor.methods({
     },
 
     // moves hero in vertical direction
-    moveHeroVertically: function(delta) {
+    moveHeroVertically: function(dir) {
+        var delta;
+
+        if (dir === "down") {
+            delta = defaultMovementRate;
+        } else {
+            delta = -defaultMovementRate;
+        }
         var validMove;
         var hero = Heroes.findOne({});
         newYPos = hero.ypos + delta;
