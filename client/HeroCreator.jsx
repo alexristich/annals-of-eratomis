@@ -66,7 +66,7 @@ HeroCreator = React.createClass({
                 left: (gameWidth / 3) + 'px',
                 textAlign: 'center',
                 //opacity: 0,
-                transform: 'translateX(100%) scale(0,0)',
+                transform: 'translateX(-100%) scale(0,0)',
                 transition: 'transform 1.5s ease'
 
             };

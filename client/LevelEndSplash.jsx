@@ -13,14 +13,19 @@ LevelEndSplash = React.createClass({
     },
 
     render() {
+        var headerStyle = {
+            fontSize: Math.floor(gameWidth * .04),
+            fontWeight: "bold"
+        };
+        
         var endSplashStyle;
 
         if (this.props.levelActive && this.props.villains.length === 0) {
             // level is active but all villains are defeated; show the splash screen
             endSplashStyle = {
                 position: 'absolute',
-                top: 270 + 'px',
-                left: 260 + 'px',
+                top: (gameHeight / 3) + 'px',
+                left: (gameWidth / 3) + 'px',
                 textAlign: 'center'
             }
         }
@@ -29,8 +34,8 @@ LevelEndSplash = React.createClass({
             // either level is inactive or there are still villains remaining; hide splash screen
             endSplashStyle = {
                 position: 'absolute',
-                top: -500 + 'px',
-                left: -500 + 'px',
+                top: -gameHeight + 'px',
+                left: -gameWidth + 'px',
                 textAlign: 'center',
                 opacity: 0
             }
@@ -38,7 +43,7 @@ LevelEndSplash = React.createClass({
 
         return (
             <div style={endSplashStyle}>
-                <h2>Level complete! </h2>
+                <p style={headerStyle}>Level complete! </p>
                 <input type="button" value="Restart Game" onClick={this.handleClick} />
             </div>
         )
