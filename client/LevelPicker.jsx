@@ -54,7 +54,7 @@ LevelPicker = React.createClass({
             // hero has been created, so we can show the LevelPicker element
             levelSelectStyle = {
                 position: 'absolute',
-                top: (gameHeight * 0.4) + 'px',
+                top: (gameHeight / 3) + 'px',
                 left: (gameWidth / 3) + 'px',
                 textAlign: 'center'
             };

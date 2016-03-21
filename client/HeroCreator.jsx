@@ -45,11 +45,16 @@ HeroCreator = React.createClass({
     },
 
     render() {
+        var headerStyle = {
+            fontSize: Math.floor(gameWidth * .04),
+            fontWeight: "bold"
+        };
+
         if (!this.props.heroActive) {
             var heroSelectStyle = {
                 position: 'absolute',
-                top: 240 + 'px',
-                left: 220 + 'px',
+                top: (gameHeight / 3) + 'px',
+                left: (gameWidth / 3) + 'px',
                 textAlign: 'center'
             };
         } else {
@@ -57,8 +62,8 @@ HeroCreator = React.createClass({
             // to prevent user from adding multiple heroes
             var heroSelectStyle = {
                 position: 'absolute',
-                top: 240 + 'px',
-                left: 220 + 'px',
+                top: (gameHeight / 3) + 'px',
+                left: (gameWidth / 3) + 'px',
                 textAlign: 'center',
                 //opacity: 0,
                 transform: 'translateX(100%) scale(0,0)',
@@ -70,7 +75,7 @@ HeroCreator = React.createClass({
 
         return(
             <div style={heroSelectStyle}>
-                <h1>Name Your Hero!</h1>
+                <p style={headerStyle}>Name Your Hero!</p>
                 <form onSubmit={this.createHero}>
                     <input
                         type="text"
