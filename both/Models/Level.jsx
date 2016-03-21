@@ -182,7 +182,14 @@ Meteor.methods({
         // });
     },
 
-    parseVillains: function(levelId, villains) {
+    parseVillains: function(levelId, vilList) {
+        var villains = vilList;
+        
+        for (var i=0; i<villains.length; i++) {
+            villains[i].xpos = Math.floor(villains[i].xpos * screenX / 100);
+            villains[i].ypos = Math.floor(villains[i].ypos * screenY / 100);
+        }
+        
         Levels.update({id: levelId}, {
             $push: {
                 'villains': {
