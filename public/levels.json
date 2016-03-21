@@ -5,40 +5,6 @@
     "difficulty": "Easy",
     "height": 700,
     "width": 700,
-    "obstacles": [
-      {
-        "_id": 1,
-        "type": "wall",
-        "height": 700,
-        "width": 25,
-        "xpos": 0,
-        "ypos": 0
-      },
-      {
-        "_id": 2,
-        "type": "wall",
-        "height": 700,
-        "width": 25,
-        "xpos": 675,
-        "ypos": 0
-      },
-      {
-        "_id": 3,
-        "type": "wall",
-        "height": 25,
-        "width": 700,
-        "xpos": 0,
-        "ypos": 0
-      },
-      {
-        "_id": 4,
-        "type": "wall",
-        "height": 25,
-        "width": 700,
-        "xpos": 0,
-        "ypos": 675
-      }
-    ],
     "villains": [
       {
         "_id": 1,
@@ -78,40 +44,6 @@
     "difficulty": "Intermediate",
     "height": 700,
     "width": 700,
-    "obstacles": [
-      {
-        "_id": 1,
-        "type": "wall",
-        "height": 700,
-        "width": 10,
-        "xpos": 0,
-        "ypos": 0
-      },
-      {
-        "_id": 2,
-        "type": "wall",
-        "height": 700,
-        "width": 10,
-        "xpos": 690,
-        "ypos": 0
-      },
-      {
-        "_id": 3,
-        "type": "wall",
-        "height": 10,
-        "width": 700,
-        "xpos": 0,
-        "ypos": 0
-      },
-      {
-        "_id": 4,
-        "type": "wall",
-        "height": 10,
-        "width": 700,
-        "xpos": 0,
-        "ypos": 690
-      }
-    ],
     "villains": [
       {
         "_id": 1,

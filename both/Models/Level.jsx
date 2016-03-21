@@ -111,12 +111,13 @@ Meteor.methods({
             }
         });
 
-        Meteor.call("parseObstacles", levelId, level.obstacles);
+        Meteor.call("parseObstacles", levelId);
         Meteor.call("parseVillains", levelId, level.villains);
 
     },
 
-    parseObstacles: function(levelId, obstacles) {
+    // eventually this will be extended with other impassible objects, such as boulders and posts
+    parseObstacles: function(levelId) {
         var wallThickness;
         if (gameMode === "mobile") {
             wallThickness = 4
@@ -128,7 +129,7 @@ Meteor.methods({
             wallThickness = 10
         }
 
-        var tempObstacles = [
+        var walls = [
             {
                 "_id": 1,
                 "type": "wall",
@@ -166,7 +167,7 @@ Meteor.methods({
         Levels.update({id: levelId}, {
             $push: {
                 'obstacles':  {
-                    $each: tempObstacles
+                    $each: walls
                 }
             }
         });
