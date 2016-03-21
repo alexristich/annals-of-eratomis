@@ -1,10 +1,5 @@
-// Define a collection to hold our hero+villains
-
-// move levels collection to new schema like Villains
-//Levels = new Mongo.Collection("levels");
-
-// set default movement rate for game
-defaultMovementRate = 25;
+// need to set this as a function of the screen size
+// defaultMovementRate = 25;
 
 if (Meteor.isClient) {
     // code executed on the client
@@ -29,10 +24,6 @@ if (Meteor.isClient) {
         // TODO move this to the Game component
         Meteor.call('initLevels', screenX, screenY);
 
-        // storing previous game data until fully incorporated in levels.json
-        //Meteor.call('createLevel', 2, 5, 0, 3, 0, false);
-        //Meteor.call('createLevel', 3, 0, 3, 0, 2, false);
-        //Meteor.call('createLevel', 4, 0, 5, 0, 3, false);
     });
 }
 
