@@ -5,6 +5,7 @@ Levels = new Mongo.Collection('levels');
 var Schemas = {};
 var screenX;
 var screenY;
+var gameMode;
 
 
 
@@ -116,12 +117,23 @@ Meteor.methods({
     },
 
     parseObstacles: function(levelId, obstacles) {
+        var wallThickness;
+        if (gameMode === "mobile") {
+            wallThickness = 4
+        } else if (gameMode === "web-sm") {
+            wallThickness = 5
+        } else if (gameMode === "web-md") {
+            wallThickness = 8
+        } else {
+            wallThickness = 10
+        }
+
         var tempObstacles = [
             {
                 "_id": 1,
                 "type": "wall",
                 "height": screenY,
-                "width": 10,
+                "width": wallThickness,
                 "xpos": 0,
                 "ypos": 0
             },
@@ -129,14 +141,14 @@ Meteor.methods({
                 "_id": 2,
                 "type": "wall",
                 "height": screenY,
-                "width": 10,
-                "xpos": screenX-10,
+                "width": wallThickness,
+                "xpos": screenX-wallThickness,
                 "ypos": 0
             },
             {
                 "_id": 3,
                 "type": "wall",
-                "height": 10,
+                "height": wallThickness,
                 "width": screenX,
                 "xpos": 0,
                 "ypos": 0
@@ -144,10 +156,10 @@ Meteor.methods({
             {
                 "_id": 4,
                 "type": "wall",
-                "height": 10,
+                "height": wallThickness,
                 "width": screenX,
                 "xpos": 0,
-                "ypos": screenY-10
+                "ypos": screenY-wallThickness
             }
         ];
 
@@ -179,9 +191,11 @@ Meteor.methods({
         });
     },
 
-    initLevels: function(x, y) {
+    initLevels: function(x, y, mode) {
+        gameMode = mode;
         screenX = x;
         screenY = y;
+
         // TODO add "meteor add http" to build instructions
         HTTP.get(Meteor.absoluteUrl("levels.json"), function(err, result) {
             Meteor.call("parseLevels", result.data);

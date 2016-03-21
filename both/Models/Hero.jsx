@@ -124,7 +124,16 @@ Meteor.methods({
     },
 
     setMovementRate: function(mode) {
-        defaultMovementRate = 20;
+        // set default movement rate according to gameMode
+        if (mode === "mobile") {
+            defaultMovementRate = 10
+        } else if (mode === "web-sm") {
+            defaultMovementRate = 13
+        } else if (mode === "web-md") {
+            defaultMovementRate = 18
+        } else {
+            defaultMovementRate = 25
+        }
     },
 
     //adjustBalance(delta) {

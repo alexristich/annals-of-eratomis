@@ -46,7 +46,7 @@ if (Meteor.isClient) {
 
         // initialization of levels
         // TODO move this to the Game component
-        Meteor.call('initLevels', gameWidth, gameHeight);
+        Meteor.call('initLevels', gameWidth, gameHeight, gameMode);
         Meteor.call("setMovementRate", gameMode);
 
     });
