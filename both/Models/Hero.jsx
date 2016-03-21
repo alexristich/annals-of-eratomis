@@ -222,8 +222,8 @@ Meteor.methods({
     },
 
     moveHeroToCursor: function(x, y) {
-        var newX = 50*Math.floor(x/50);
-        var newY = 50*Math.floor(y/50);
+        var newX = defaultMovementRate * Math.floor(x/defaultMovementRate);
+        var newY = defaultMovementRate * Math.floor(y/defaultMovementRate);
 
         var hero = Heroes.findOne({});
         hero.xpos = newX;
