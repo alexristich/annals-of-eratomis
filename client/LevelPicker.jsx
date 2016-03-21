@@ -37,35 +37,33 @@ LevelPicker = React.createClass({
     },
 
     render() {
+        var headerStyle = {
+            fontSize: Math.floor(gameWidth * .04),
+            fontWeight: "bold"
+        };
+
         var levelSelectStyle;
 
         if (!this.props.heroActive && !this.props.levelActive) {
             levelSelectStyle = {
                 position: 'absolute',
-                top: -500 + 'px',
-                left: -500 + 'px',
-                textAlign: 'center',
-                opacity: 0
+                top: -gameHeight + 'px',
+                left: -gameWidth + 'px'
             };
         } else if (!this.props.levelActive) {
             // hero has been created, so we can show the LevelPicker element
             levelSelectStyle = {
                 position: 'absolute',
-                top: 240 + 'px',
-                left: 20 + 'px',
-                textAlign: 'center',
-                transform: 'translateX(200px)',
-                transition: 'transform 1s ease'
+                top: (gameHeight * 0.4) + 'px',
+                left: (gameWidth / 3) + 'px',
+                textAlign: 'center'
             };
         } else {
             // level has been selected, so we hide the level picker
             levelSelectStyle = {
                 position: 'absolute',
-                top: 240 + 'px',
-                left: 220 + 'px',
-                textAlign: 'center',
-                transform: 'translateX(100%) scale(0,0)',
-                transition: 'transform 1.5s ease'
+                top: -gameHeight + 'px',
+                left: -gameWidth + 'px'
             };
         }
 
@@ -75,7 +73,7 @@ LevelPicker = React.createClass({
 
         return (
             <div style={levelSelectStyle}>
-                <h1>Choose Your Level:</h1>
+                <p style={headerStyle}>Choose Your Level:</p>
                 <select name="levels" id="levels">
                     <option value="0">Select a level...</option>
                     {this.showLevels()}
