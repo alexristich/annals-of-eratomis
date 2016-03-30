@@ -7,24 +7,54 @@ HeroCreator = React.createClass({
 
     createHero(e) {
         e.preventDefault();
+        
+        var hero;
 
-        //creating Hero
-        var hero = {
-            username: "newHero",
-            xpos: 100,
-            ypos: 100,
-            width: 40,
-            height: 50
-        };
-        Meteor.call('addHero', hero);
+        // set hero size and default pos based on gameMode
+        if (gameMode === "mobile") {
+            hero = {
+                width: 20,
+                height: 25,
+                xpos: 180,
+                ypos: 100
+            }
+        } else if (gameMode === "web-sm") {
+            hero = {
+                width: 26,
+                height: 32,
+                xpos: 240,
+                ypos: 100
+            }
+        } else if (gameMode === "web-md") {
+            hero = {
+                width: 36,
+                height: 45,
+                xpos: 360,
+                ypos: 100
+            }
+        } else {
+            hero = {
+                width: 50,
+                height: 63,
+                xpos: 485,
+                ypos: 100
+            }
+        }
+        
+        Meteor.call('addHero', hero, gameMode);
     },
 
     render() {
+        var headerStyle = {
+            fontSize: Math.floor(gameWidth * .04),
+            fontWeight: "bold"
+        };
+
         if (!this.props.heroActive) {
             var heroSelectStyle = {
                 position: 'absolute',
-                top: 240 + 'px',
-                left: 220 + 'px',
+                top: (gameHeight / 3) + 'px',
+                left: (gameWidth / 3) + 'px',
                 textAlign: 'center'
             };
         } else {
@@ -32,11 +62,11 @@ HeroCreator = React.createClass({
             // to prevent user from adding multiple heroes
             var heroSelectStyle = {
                 position: 'absolute',
-                top: 240 + 'px',
-                left: 220 + 'px',
+                top: (gameHeight / 3) + 'px',
+                left: (gameWidth / 3) + 'px',
                 textAlign: 'center',
                 //opacity: 0,
-                transform: 'translateX(100%) scale(0,0)',
+                transform: 'translateX(-100%) scale(0,0)',
                 transition: 'transform 1.5s ease'
 
             };
@@ -45,7 +75,7 @@ HeroCreator = React.createClass({
 
         return(
             <div style={heroSelectStyle}>
-                <h1>Name Your Hero!</h1>
+                <p style={headerStyle}>Name Your Hero!</p>
                 <form onSubmit={this.createHero}>
                     <input
                         type="text"

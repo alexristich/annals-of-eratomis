@@ -3,6 +3,11 @@
 Levels = new Mongo.Collection('levels');
 
 var Schemas = {};
+var screenX;
+var screenY;
+var gameMode;
+
+
 
 Schemas.Level = new SimpleSchema({
     id: {
@@ -106,22 +111,85 @@ Meteor.methods({
             }
         });
 
-        Meteor.call("parseObstacles", levelId, level.obstacles);
+        Meteor.call("parseObstacles", levelId);
         Meteor.call("parseVillains", levelId, level.villains);
 
     },
 
-    parseObstacles: function(levelId, obstacles) {
+    // eventually this will be extended with other impassible objects, such as boulders and posts
+    parseObstacles: function(levelId) {
+        var wallThickness;
+        if (gameMode === "mobile") {
+            wallThickness = 4
+        } else if (gameMode === "web-sm") {
+            wallThickness = 5
+        } else if (gameMode === "web-md") {
+            wallThickness = 8
+        } else {
+            wallThickness = 10
+        }
+
+        var walls = [
+            {
+                "_id": 1,
+                "type": "wall",
+                "height": screenY,
+                "width": wallThickness,
+                "xpos": 0,
+                "ypos": 0
+            },
+            {
+                "_id": 2,
+                "type": "wall",
+                "height": screenY,
+                "width": wallThickness,
+                "xpos": screenX-wallThickness,
+                "ypos": 0
+            },
+            {
+                "_id": 3,
+                "type": "wall",
+                "height": wallThickness,
+                "width": screenX,
+                "xpos": 0,
+                "ypos": 0
+            },
+            {
+                "_id": 4,
+                "type": "wall",
+                "height": wallThickness,
+                "width": screenX,
+                "xpos": 0,
+                "ypos": screenY-wallThickness
+            }
+        ];
+
         Levels.update({id: levelId}, {
             $push: {
                 'obstacles':  {
-                    $each: obstacles
+                    $each: walls
                 }
             }
         });
+
+        // temporarily comment this out while manually adding obstacles
+        // Levels.update({id: levelId}, {
+        //     $push: {
+        //         'obstacles':  {
+        //             $each: obstacles
+        //         }
+        //     }
+        // });
     },
 
-    parseVillains: function(levelId, villains) {
+    parseVillains: function(levelId, vilList) {
+        var villains = vilList;
+        
+        for (var i=0; i<villains.length; i++) {
+            villains[i].xpos = Math.floor(villains[i].xpos * screenX / 100);
+            villains[i].ypos = Math.floor(villains[i].ypos * screenY / 100);
+        }
+        
         Levels.update({id: levelId}, {
             $push: {
                 'villains': {
@@ -131,7 +199,11 @@ Meteor.methods({
         });
     },
 
-    initLevels: function() {
+    initLevels: function(x, y, mode) {
+        gameMode = mode;
+        screenX = x;
+        screenY = y;
+
         // TODO add "meteor add http" to build instructions
         HTTP.get(Meteor.absoluteUrl("levels.json"), function(err, result) {
             Meteor.call("parseLevels", result.data);

@@ -5,6 +5,7 @@
 Heroes = new Mongo.Collection('heroes');
 
 var Schemas = {};
+var defaultMovementRate;
 
 Schemas.Hero = new SimpleSchema({
     username: {
@@ -106,15 +107,35 @@ Heroes.attachSchema(Schemas.Hero);
 
 Meteor.methods({
     addHero: function(hero) {
+
+
+        // add new hero
         Heroes.insert({
             // TODO add Hero ID using Meteor ID once login is enabled
-            username: hero.username,
+            // username is being set manually for now to support easier testability
+            username: "hero",
             xpos: hero.xpos,
             ypos: hero.ypos,
             width: hero.width,
             height: hero.height
-        })
+        });
+
+
     },
+
+    setMovementRate: function(mode) {
+        // set default movement rate according to gameMode
+        if (mode === "mobile") {
+            defaultMovementRate = 10
+        } else if (mode === "web-sm") {
+            defaultMovementRate = 13
+        } else if (mode === "web-md") {
+            defaultMovementRate = 18
+        } else {
+            defaultMovementRate = 25
+        }
+    },
+
     //adjustBalance(delta) {
     //    Hero.gold += delta;
     //},
@@ -154,7 +175,15 @@ Meteor.methods({
     },
 
     // moves hero in horizontal direction
-    moveHeroLaterally: function(delta) {
+    moveHeroLaterally: function(dir) {
+        var delta;
+
+        if (dir === "right") {
+            delta = defaultMovementRate;
+        } else {
+            delta = -defaultMovementRate;
+        }
+
         var validMove;
         var hero = Heroes.findOne({});
         newXPos = hero.xpos + delta;
@@ -170,7 +199,14 @@ Meteor.methods({
     },
 
     // moves hero in vertical direction
-    moveHeroVertically: function(delta) {
+    moveHeroVertically: function(dir) {
+        var delta;
+
+        if (dir === "down") {
+            delta = defaultMovementRate;
+        } else {
+            delta = -defaultMovementRate;
+        }
         var validMove;
         var hero = Heroes.findOne({});
         newYPos = hero.ypos + delta;
@@ -186,8 +222,8 @@ Meteor.methods({
     },
 
     moveHeroToCursor: function(x, y) {
-        var newX = 50*Math.floor(x/50);
-        var newY = 50*Math.floor(y/50);
+        var newX = defaultMovementRate * Math.floor(x/defaultMovementRate);
+        var newY = defaultMovementRate * Math.floor(y/defaultMovementRate);
 
         var hero = Heroes.findOne({});
         hero.xpos = newX;

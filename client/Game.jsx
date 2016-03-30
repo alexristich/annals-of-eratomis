@@ -34,13 +34,13 @@ Game = React.createClass({
             var keyEvent = event.key;
 
             if (keyEvent === "ArrowRight") {
-                Meteor.call('moveHeroLaterally', defaultMovementRate);
+                Meteor.call('moveHeroLaterally', "right");
             } else if (keyEvent === "ArrowLeft") {
-                Meteor.call('moveHeroLaterally', -defaultMovementRate);
+                Meteor.call('moveHeroLaterally', "left");
             } else if (keyEvent === "ArrowDown") {
-                Meteor.call('moveHeroVertically', defaultMovementRate);
+                Meteor.call('moveHeroVertically', "down");
             } else if (keyEvent === "ArrowUp") {
-                Meteor.call('moveHeroVertically', -defaultMovementRate);
+                Meteor.call('moveHeroVertically', "up");
             }
         }
     },
@@ -52,8 +52,6 @@ Game = React.createClass({
         if (this.data.level !== undefined) {
 
             event.preventDefault();
-            console.log("X coordinate: " + event.pageX);
-            console.log("Y coordinate: " + event.pageY);
 
             Meteor.call('moveHeroToCursor', event.pageX, event.pageY);
         }
@@ -78,13 +76,10 @@ Game = React.createClass({
 
     render() {
 
+        // gets these values from the Meteor.startup calculation 
         var backgroundStyle = {
-            width: '700px',
-            height: '700px',
-            //maxWidth: '700px',
-            //maxHeight: '700px',
-            //margin: '0 auto',
-            //minHeight: '100%',
+            width: gameWidth,
+            height: gameHeight,
             background: 'white'
         };
 

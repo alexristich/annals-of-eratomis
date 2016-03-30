@@ -1,10 +1,5 @@
-// Define a collection to hold our hero+villains
-
-// move levels collection to new schema like Villains
-//Levels = new Mongo.Collection("levels");
-
-// set default movement rate for game
-defaultMovementRate = 25;
+// need to set this as a function of the screen size
+// defaultMovementRate = 25;
 
 if (Meteor.isClient) {
     // code executed on the client
@@ -15,6 +10,32 @@ if (Meteor.isClient) {
     Meteor.subscribe("heroes");
 
     Meteor.startup(function() {
+
+        var screenX = window.innerWidth;
+        var screenY = window.innerHeight;
+
+        if (Meteor.isCordova) {
+            gameWidth = 375;
+            gameHeight = 667;
+            gameMode = "mobile";
+        } else {
+            if (screenX < 750) {
+                gameWidth = 500;
+                gameHeight = 300;
+                gameMode = "web-sm";
+            } else if (screenX < 1000) {
+                gameWidth = 750;
+                gameHeight = 470;
+                gameMode = "web-md";
+            } else {
+                gameWidth = 1000;
+                gameHeight = 625;
+                gameMode = "web-lg";
+            }
+        }
+
+        screenX = window.innerWidth;
+        screenY = window.innerHeight;
         // Use Meteor.startup to render the component after the page is ready
         ReactDOM.render(<Game />, document.getElementById("render-target"));
 
@@ -25,12 +46,9 @@ if (Meteor.isClient) {
 
         // initialization of levels
         // TODO move this to the Game component
-        Meteor.call('initLevels');
+        Meteor.call('initLevels', gameWidth, gameHeight, gameMode);
+        Meteor.call("setMovementRate", gameMode);
 
-        // storing previous game data until fully incorporated in levels.json
-        //Meteor.call('createLevel', 2, 5, 0, 3, 0, false);
-        //Meteor.call('createLevel', 3, 0, 3, 0, 2, false);
-        //Meteor.call('createLevel', 4, 0, 5, 0, 3, false);
     });
 }
 

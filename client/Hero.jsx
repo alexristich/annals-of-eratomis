@@ -12,7 +12,9 @@ Hero = React.createClass({
         var imgStyle = {
             position: 'absolute',
             left: xpos + 'px',
-            top: ypos + 'px'
+            top: ypos + 'px',
+            width: this.props.hero.width,
+            height: this.props.hero.height
         };
 
         return (

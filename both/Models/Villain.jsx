@@ -78,9 +78,9 @@ Meteor.methods({
         }
     },
 
+    // TODO call methods to determine appropriate speed and hit points based on villain type
     summonVillain: function(villain) {
-        // TODO call methods to determine appropriate speed and hit points based on villain type
-        // TODO decide whether height and width should be hardcoded
+        // TODO customize height and width based on game mode
         Villains.insert({
             id: villain._id,
             type: villain.type,
